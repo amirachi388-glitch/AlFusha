@@ -1151,3 +1151,19 @@ body {
 }
 .empty-legal h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
 .empty-legal p { font-size: 0.88rem; color: var(--text-dim); }
+
+/* ===== الشروط والخصوصية ===== */
+.legal-title {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px; padding: 0 4px;
+}
+.legal-title i {
+    color: var(--gold);
+    font-size: 1.1rem;
+    filter: drop-shadow(0 0 6px rgba(212,175,55,0.4));
+}
+.legal-title h3 {
+    font-size: 1.1rem; font-weight: 700;
+    color: #fff;
+}
+.legal-box { margin-bottom: 20px; }
