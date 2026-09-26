@@ -356,7 +356,6 @@ function showDetails(id) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     // تعبئة بيانات التفاصيل
-    bannerImage.src = content.banner;
     bannerTitle.textContent = content.title;
     if (!content.episodes || content.episodes.length === 0) {
         document.getElementById('episodesList').innerHTML = `<div class="empty-episodes"><i class="fas fa-film"></i><p>لا توجد حلقات متاحة حالياً</p></div>`;
