@@ -1034,3 +1034,43 @@ body {
 }
 .review-message.success { color: #4ade80; }
 .review-message.error { color: #f87171; }
+
+/* ===== الإيموجي - تصميم أنيق ===== */
+.rating-emojis {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding: 0 4px;
+}
+.emoji-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 0;
+    border-radius: 14px;
+    border: 2px solid transparent;
+    background: rgba(255,255,255,0.03);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.emoji-item i {
+    font-size: 1.5rem;
+    color: #d4af37;
+    transition: all 0.25s ease;
+    filter: drop-shadow(0 0 5px rgba(212,175,55,0.25));
+}
+.emoji-item:active {
+    transform: scale(0.92);
+}
+.emoji-item.selected {
+    background: rgba(212,175,55,0.15);
+    border-color: #d4af37;
+    box-shadow: 0 0 20px rgba(212,175,55,0.3);
+}
+.emoji-item.selected i {
+    color: #f4d47c;
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 10px rgba(212,175,55,0.8));
+}

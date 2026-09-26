@@ -445,53 +445,60 @@ function resetReviewForm() {
     if (msg) { msg.textContent = ''; msg.className = 'review-message'; }
 }
 
-// اختيار تقييم
+// =========================================
+// ⭐ التقييم - الإيموجي فقط
+// =========================================
 let selectedRating = null;
+
+// عند فتح صفحة التفاصيل، حدّد التقييم المحفوظ
+function updateEmojiSelection() {
+    const content = contentData[0];
+    const saved = JSON.parse(localStorage.getItem('myRating_' + content.id) || 'null');
+    document.querySelectorAll('.emoji-item').forEach(item => {
+        item.classList.toggle('selected', saved !== null && parseInt(item.dataset.value) === saved);
+    });
+    selectedRating = saved;
+}
+
+// عند الضغط على أي إيموجي → احفظ فوراً
 document.querySelectorAll('.emoji-item').forEach(item => {
     item.addEventListener('click', () => {
+        const value = parseInt(item.dataset.value);
+        const content = contentData[0];
+        
+        // احفظ التقييم في الذاكرة
+        localStorage.setItem('myRating_' + content.id, value);
+        selectedRating = value;
+        
+        // حدّث العرض
         document.querySelectorAll('.emoji-item').forEach(e => e.classList.remove('selected'));
         item.classList.add('selected');
-        selectedRating = parseInt(item.dataset.value);
+        
+        // اجلب التقييمات المحفوظة وحفظ الجديد
+        const allRatings = JSON.parse(localStorage.getItem('ratings_' + content.id) || '[]');
+        
+        // شيل تقييم المستخدم القديم إذا موجود
+        const filtered = allRatings.filter(r => !r.mine);
+        filtered.push({ value: value, mine: true, date: new Date().toISOString() });
+        localStorage.setItem('ratings_' + content.id, JSON.stringify(filtered));
+        
+        // حدّث المتوسط
+        loadRating(content.id);
+        updateEmojiSelection();
+        
+        // رسالة نجاح صغيرة
+        const msg = document.getElementById('reviewMessage');
+        msg.textContent = '✓ تم حفظ تقييمك';
+        msg.className = 'review-message success';
+        setTimeout(() => { msg.textContent = ''; }, 2000);
     });
 });
 
-// إرسال التقييم
-document.getElementById('submitReviewBtn').addEventListener('click', () => {
-    const msgEl = document.getElementById('reviewMessage');
-    
-    if (!selectedRating) {
-        msgEl.textContent = 'الرجاء اختيار تقييم أولاً';
-        msgEl.className = 'review-message error';
-        return;
-    }
-    
-    // حدد المسلسل الحالي
-    const activeDetails = document.getElementById('details');
-    if (!activeDetails || !activeDetails.classList.contains('active')) return;
-    
-    // خذ أول مسلسل (مؤقتاً)
-    const content = contentData[0];
-    const contentId = content.id;
-    
-    // اجلب التقييمات المحفوظة
-    const savedRatings = JSON.parse(localStorage.getItem('ratings_' + contentId) || '[]');
-    
-    // أضف التقييم الجديد
-    savedRatings.push({
-        value: selectedRating,
-        text: document.getElementById('reviewText').value.trim(),
-        date: new Date().toISOString()
-    });
-    
-    localStorage.setItem('ratings_' + contentId, JSON.stringify(savedRatings));
-    
-    // رسالة نجاح
-    msgEl.textContent = '✓ تم إرسال تقييمك بنجاح، شكراً لك!';
-    msgEl.className = 'review-message success';
-    
-    // حدث العرض
-    loadRating(contentId);
-    
-    // نظف النموذج بعد ثانيتين
-    setTimeout(() => resetReviewForm(), 2000);
-});
+// حدّث التقييم عند فتح الصفحة
+const originalLoadRating = window.loadRating;
+window.loadRating = function(contentId) {
+    if (originalLoadRating) originalLoadRating(contentId);
+    updateEmojiSelection();
+};
+
+console.log('🍿 الفسحة جاهزة!');

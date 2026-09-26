@@ -75,83 +75,50 @@
 
         <!-- صفحة التفاصيل -->
         <section id="details" class="section">
-        
-        <!-- ===== المشغل المدمج (البانر يصير فيديو) ===== -->
-        <div class="hero-container" id="heroContainer">
-            
-            <!-- البانر (الحالة الافتراضية) -->
-            <div class="hero-banner" id="heroBanner">
-                <img src="banner.png" alt="المحقق كونان" id="bannerImage">
-                <div class="hero-overlay"></div>
-                <div class="hero-content">
-                    <h2 id="bannerTitle">المحقق كونان</h2>
-                    <p>إضغط على حلقة لبدء المشاهدة</p>
-                </div>
-            </div>
-            
-            <!-- الفيديو (يظهر مكان البانر) -->
-            <div class="hero-player" id="heroPlayer">
-                <video id="mainVideo" playsinline preload="metadata"></video>
-                
-                <!-- مؤشر التحميل -->
-                <div class="player-loading" id="playerLoading"><div class="spinner"></div></div>
-                
-                <!-- زر التشغيل الكبير -->
-                <button class="big-play-btn" id="bigPlayBtn"><i class="fas fa-play"></i></button>
-                
-                <!-- التحكم -->
-                <div class="player-controls" id="playerControls">
-                    <div class="player-topbar hide-on-idle">
-                        <button class="player-btn" id="closeVideoBtn"><i class="fas fa-arrow-right"></i></button>
-                        <div class="player-info">
-                            <h4 id="playerTitle">المحقق كونان</h4>
-                            <span id="playerSubtitle">الحلقة 1</span>
-                        </div>
+            <!-- البانر -->
+            <div class="hero-container" id="heroContainer">
+                <div class="hero-banner" id="heroBanner">
+                    <img src="banner.png" alt="الفسحة" id="bannerImage">
+                    <div class="hero-overlay"></div>
+                    <div class="hero-content">
+                        <h2 id="bannerTitle">المحقق كونان</h2>
+                        <p>إضغط على حلقة لبدء المشاهدة</p>
                     </div>
-                    
-                    <div class="player-bottombar hide-on-idle">
-                        <div class="progress-wrap" id="progressWrap">
-                            <div class="progress-buffer" id="progressBuffer"></div>
-                            <div class="progress-played" id="progressPlayed"><div class="progress-thumb"></div></div>
+                </div>
+                <div class="hero-player" id="heroPlayer">
+                    <video id="mainVideo" playsinline preload="metadata"></video>
+                    <div class="player-loading" id="playerLoading"><div class="spinner"></div></div>
+                    <button class="big-play-btn" id="bigPlayBtn"><i class="fas fa-play"></i></button>
+                    <div class="player-controls" id="playerControls">
+                        <div class="player-topbar hide-on-idle">
+                            <button class="player-btn" id="closeVideoBtn"><i class="fas fa-arrow-right"></i></button>
+                            <div class="player-info">
+                                <h4 id="playerTitle">المحقق كونان</h4>
+                                <span id="playerSubtitle">الحلقة 1</span>
+                            </div>
                         </div>
-                        <div class="controls-row">
-                            <button class="player-btn" id="playPauseBtn"><i class="fas fa-play"></i></button>
-                            <button class="player-btn" id="muteBtn"><i class="fas fa-volume-high"></i></button>
-                            <span class="time-display"><span id="currentTime">0:00</span> / <span id="totalTime">0:00</span></span>
-                            <div style="flex:1"></div>
-                            <button class="player-btn" id="fullscreenBtn"><i class="fas fa-expand"></i></button>
+                        <div class="player-bottombar hide-on-idle">
+                            <div class="progress-wrap" id="progressWrap">
+                                <div class="progress-buffer" id="progressBuffer"></div>
+                                <div class="progress-played" id="progressPlayed"><div class="progress-thumb"></div></div>
+                            </div>
+                            <div class="controls-row">
+                                <button class="player-btn" id="playPauseBtn"><i class="fas fa-play"></i></button>
+                                <button class="player-btn" id="muteBtn"><i class="fas fa-volume-high"></i></button>
+                                <span class="time-display"><span id="currentTime">0:00</span> / <span id="totalTime">0:00</span></span>
+                                <div style="flex:1"></div>
+                                <button class="player-btn" id="fullscreenBtn"><i class="fas fa-expand"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- شريط الأدوات -->
-        <div class="toolbar">
-            <div class="toolbar-group">
-                <button class="tool-btn" id="prevBtn"><i class="fas fa-backward"></i> السابقة</button>
-                <button class="tool-btn" id="nextBtn"><i class="fas fa-forward"></i> التالية</button>
-            </div>
-            <div class="toolbar-group">
-                <button class="tool-btn"><i class="fas fa-download"></i> تحميل</button>
-                <button class="tool-btn"><i class="fas fa-cog"></i> الإعدادات</button>
-            </div>
-        </div>
-
-        <!-- الحلقات -->
-        <div class="episodes-box">
-            <div class="episodes-header">
-                <h3>جميع الحلقات</h3>
-                <span id="episodesCount"></span>
-            </div>
-            <div id="episodesList" class="episodes-list"></div>
-        </div>
-
-        <!-- التقييم -->
-        <!-- النبذة العامة -->
+            <!-- النبذة العامة -->
             <div class="description-box">
                 <div class="description-header">
-                    <h3><i class="fas fa-info-circle"></i> نبذة عامة</h3>
+                    <i class="fas fa-info-circle"></i>
+                    <h3>نبذة عامة</h3>
                 </div>
                 <p id="detailsDescription">جارٍ التحميل...</p>
             </div>
@@ -159,7 +126,8 @@
             <!-- التقييم -->
             <div class="rating-box">
                 <div class="avg-rating-header">
-                    <h3><i class="fas fa-star"></i> تقييم المسلسل</h3>
+                    <i class="fas fa-star"></i>
+                    <h3>تقييم المسلسل</h3>
                 </div>
                 <div class="avg-rating-display">
                     <div class="avg-rating-score">
@@ -173,21 +141,36 @@
                 <div class="user-review-section">
                     <h4>ما هو تقييمك؟</h4>
                     <div class="rating-emojis" id="ratingEmojis">
-                        <span class="emoji-item" data-value="5"><i class="fas fa-star"></i><small>جيد</small></span>
-                        <span class="emoji-item" data-value="4"><i class="fas fa-face-laugh-squint"></i><small>مضحك</small></span>
-                        <span class="emoji-item" data-value="5"><i class="fas fa-heart"></i><small>رائع</small></span>
-                        <span class="emoji-item" data-value="4"><i class="fas fa-face-grin-stars"></i><small>مشوق</small></span>
-                        <span class="emoji-item" data-value="2"><i class="fas fa-face-angry"></i><small>سيء</small></span>
-                        <span class="emoji-item" data-value="1"><i class="fas fa-face-sad-tear"></i><small>محزن</small></span>
+                        <span class="emoji-item" data-value="1"><i class="fas fa-face-sad-tear"></i></span>
+                        <span class="emoji-item" data-value="2"><i class="fas fa-face-angry"></i></span>
+                        <span class="emoji-item" data-value="3"><i class="fas fa-face-meh"></i></span>
+                        <span class="emoji-item" data-value="4"><i class="fas fa-face-laugh-squint"></i></span>
+                        <span class="emoji-item" data-value="5"><i class="fas fa-heart"></i></span>
                     </div>
-                    <textarea id="reviewText" class="review-textarea" placeholder="اكتب رأيك عن المسلسل... (اختياري)" rows="3"></textarea>
-                    <button class="submit-review-btn" id="submitReviewBtn">
-                        <i class="fas fa-paper-plane"></i> إرسال التقييم
-                    </button>
                     <div class="review-message" id="reviewMessage"></div>
                 </div>
             </div>
 
+            <!-- شريط الأدوات -->
+            <div class="toolbar">
+                <div class="toolbar-group">
+                    <button class="tool-btn" id="prevBtn"><i class="fas fa-backward"></i> <span>السابقة</span></button>
+                    <button class="tool-btn" id="nextBtn"><i class="fas fa-forward"></i> <span>التالية</span></button>
+                </div>
+                <div class="toolbar-group">
+                    <button class="tool-btn"><i class="fas fa-download"></i> <span>تحميل</span></button>
+                    <button class="tool-btn"><i class="fas fa-cog"></i> <span>الإعدادات</span></button>
+                </div>
+            </div>
+
+            <!-- الحلقات -->
+            <div class="episodes-box">
+                <div class="episodes-header">
+                    <h3>جميع الحلقات</h3>
+                    <span id="episodesCount"></span>
+                </div>
+                <div id="episodesList" class="episodes-list"></div>
+            </div>
         </section>
 
         <section id="library" class="section">
