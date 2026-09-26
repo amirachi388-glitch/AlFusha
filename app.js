@@ -382,3 +382,116 @@ document.getElementById('closeVideoBtn').addEventListener('click', () => {
 
 window.showDetails = showDetails;
 window.renderContentGrid = renderContentGrid;
+
+// =========================================
+// 📖 النبذة + التقييم
+// =========================================
+
+// عند فتح صفحة التفاصيل، حدث النبذة والتقييم
+const originalShowDetails = window.showDetails;
+window.showDetails = function(id) {
+    if (originalShowDetails) originalShowDetails(id);
+    
+    const content = contentData.find(c => c.id === id);
+    if (!content) return;
+    
+    // تحديث النبذة
+    const descEl = document.getElementById('detailsDescription');
+    if (descEl) {
+        descEl.textContent = content.description || 'لا يوجد وصف متاح لهذا المسلسل حالياً.';
+    }
+    
+    // تحديث التقييم
+    loadRating(id);
+    resetReviewForm();
+};
+
+// تحميل التقييم من الذاكرة
+function loadRating(contentId) {
+    const content = contentData.find(c => c.id === contentId);
+    const baseRating = parseFloat(content.rating) || 0;
+    
+    // اجلب التقييمات المحفوظة
+    const savedRatings = JSON.parse(localStorage.getItem('ratings_' + contentId) || '[]');
+    const totalCount = savedRatings.length;
+    const userAvg = totalCount > 0 
+        ? savedRatings.reduce((sum, r) => sum + r.value, 0) / totalCount 
+        : 0;
+    
+    // احسب المتوسط (تقييم أساسي + تقييمات المستخدمين)
+    const baseCount = 100; // نفترض أن التقييم الأساسي يمثل 100 مشاهد
+    const finalAvg = totalCount > 0
+        ? ((baseRating * baseCount) + (userAvg * totalCount)) / (baseCount + totalCount)
+        : baseRating;
+    
+    // حدث العرض
+    document.getElementById('avgScore').textContent = finalAvg.toFixed(1);
+    document.getElementById('ratingCount').textContent = `من ${baseCount + totalCount} مشاهد`;
+    
+    // النجوم
+    const starsEl = document.getElementById('avgStars');
+    const starCount = Math.round(finalAvg / 2); // من 5 نجوم
+    starsEl.innerHTML = Array.from({length: 5}, (_, i) => 
+        `<i class="fas fa-star ${i < starCount ? 'active' : ''}"></i>`
+    ).join('');
+}
+
+// إعادة تعيين نموذج التقييم
+function resetReviewForm() {
+    document.querySelectorAll('.emoji-item').forEach(e => e.classList.remove('selected'));
+    const textarea = document.getElementById('reviewText');
+    if (textarea) textarea.value = '';
+    const msg = document.getElementById('reviewMessage');
+    if (msg) { msg.textContent = ''; msg.className = 'review-message'; }
+}
+
+// اختيار تقييم
+let selectedRating = null;
+document.querySelectorAll('.emoji-item').forEach(item => {
+    item.addEventListener('click', () => {
+        document.querySelectorAll('.emoji-item').forEach(e => e.classList.remove('selected'));
+        item.classList.add('selected');
+        selectedRating = parseInt(item.dataset.value);
+    });
+});
+
+// إرسال التقييم
+document.getElementById('submitReviewBtn').addEventListener('click', () => {
+    const msgEl = document.getElementById('reviewMessage');
+    
+    if (!selectedRating) {
+        msgEl.textContent = 'الرجاء اختيار تقييم أولاً';
+        msgEl.className = 'review-message error';
+        return;
+    }
+    
+    // حدد المسلسل الحالي
+    const activeDetails = document.getElementById('details');
+    if (!activeDetails || !activeDetails.classList.contains('active')) return;
+    
+    // خذ أول مسلسل (مؤقتاً)
+    const content = contentData[0];
+    const contentId = content.id;
+    
+    // اجلب التقييمات المحفوظة
+    const savedRatings = JSON.parse(localStorage.getItem('ratings_' + contentId) || '[]');
+    
+    // أضف التقييم الجديد
+    savedRatings.push({
+        value: selectedRating,
+        text: document.getElementById('reviewText').value.trim(),
+        date: new Date().toISOString()
+    });
+    
+    localStorage.setItem('ratings_' + contentId, JSON.stringify(savedRatings));
+    
+    // رسالة نجاح
+    msgEl.textContent = '✓ تم إرسال تقييمك بنجاح، شكراً لك!';
+    msgEl.className = 'review-message success';
+    
+    // حدث العرض
+    loadRating(contentId);
+    
+    // نظف النموذج بعد ثانيتين
+    setTimeout(() => resetReviewForm(), 2000);
+});

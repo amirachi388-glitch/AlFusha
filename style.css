@@ -832,3 +832,205 @@ body {
     color: var(--text-dim);
     margin-bottom: 16px; opacity: 0.5;
 }
+
+/* =========================================
+   📖 النبذة العامة + التقييم الجديد
+   ========================================= */
+.description-box {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+}
+.description-box::before {
+    content: ''; position: absolute;
+    top: 0; right: 0; width: 100px; height: 100px;
+    background: radial-gradient(circle, rgba(212,175,55,0.12), transparent 70%);
+    filter: blur(20px); pointer-events: none;
+}
+.description-header {
+    display: flex; align-items: center;
+    gap: 8px; margin-bottom: 12px;
+}
+.description-header i {
+    color: var(--gold); font-size: 0.95rem;
+    filter: drop-shadow(0 0 6px rgba(212,175,55,0.4));
+}
+.description-header h3 {
+    font-size: 0.95rem; font-weight: 700;
+    color: #fff;
+}
+#detailsDescription {
+    font-size: 0.87rem; line-height: 1.8;
+    color: #c5c5c5;
+    position: relative; z-index: 1;
+}
+
+/* ===== التقييم الجديد ===== */
+.rating-box {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 24px;
+}
+.avg-rating-header {
+    display: flex; align-items: center;
+    gap: 8px; margin-bottom: 14px;
+}
+.avg-rating-header i {
+    color: var(--gold); font-size: 0.95rem;
+    filter: drop-shadow(0 0 6px rgba(212,175,55,0.4));
+}
+.avg-rating-header h3 {
+    font-size: 0.95rem; font-weight: 700;
+    color: #fff;
+}
+
+.avg-rating-display {
+    display: flex; align-items: center;
+    gap: 14px;
+    padding: 14px;
+    background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(212,175,55,0.02) 100%);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 14px;
+    margin-bottom: 18px;
+}
+.avg-rating-score {
+    display: flex; align-items: baseline;
+    gap: 2px;
+    flex-shrink: 0;
+}
+.score-num {
+    font-size: 2rem; font-weight: 900;
+    background: linear-gradient(135deg, #d4af37 0%, #f4d47c 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+}
+.score-total {
+    font-size: 0.85rem; color: var(--text-dim);
+    font-weight: 500;
+}
+.avg-rating-stars {
+    display: flex; gap: 2px;
+    font-size: 0.85rem; color: var(--gold);
+    flex: 1;
+}
+.avg-rating-stars i.active {
+    color: var(--gold);
+    filter: drop-shadow(0 0 4px rgba(212,175,55,0.5));
+}
+.avg-rating-stars i {
+    color: rgba(255,255,255,0.15);
+}
+.avg-rating-count {
+    font-size: 0.7rem; color: var(--text-dim);
+    white-space: nowrap;
+}
+
+/* ===== تقييم المستخدم ===== */
+.user-review-section {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 16px;
+}
+.user-review-section h4 {
+    font-size: 0.88rem; font-weight: 600;
+    color: #fff;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.rating-emojis {
+    display: flex; justify-content: space-between;
+    gap: 4px; margin-bottom: 14px;
+}
+.emoji-item {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 5px;
+    cursor: pointer; transition: all 0.25s ease;
+    flex: 1;
+    padding: 8px 2px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+}
+.emoji-item i {
+    font-size: 1.3rem; color: var(--gold);
+    transition: all 0.25s ease;
+    filter: drop-shadow(0 0 5px rgba(212,175,55,0.25));
+}
+.emoji-item small {
+    font-size: 0.6rem; color: var(--text-dim);
+    transition: all 0.25s ease;
+}
+.emoji-item:active i { transform: scale(1.15); }
+.emoji-item.selected {
+    background: rgba(212,175,55,0.15);
+    border-color: rgba(212,175,55,0.5);
+}
+.emoji-item.selected i {
+    color: #f4d47c;
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 10px rgba(212,175,55,0.7));
+}
+.emoji-item.selected small { color: #f4d47c; }
+
+.review-textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.85rem;
+    outline: none;
+    resize: vertical;
+    min-height: 60px;
+    margin-bottom: 12px;
+    transition: all 0.25s ease;
+}
+.review-textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+    background: rgba(212,175,55,0.04);
+}
+.review-textarea::placeholder { color: var(--text-dim); }
+
+.submit-review-btn {
+    width: 100%;
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #d4af37 0%, #f4d47c 100%);
+    border: none;
+    color: #0a0a0a;
+    padding: 12px 20px;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 20px rgba(212,175,55,0.3);
+}
+.submit-review-btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 3px 12px rgba(212,175,55,0.4);
+}
+.submit-review-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.review-message {
+    text-align: center;
+    font-size: 0.82rem;
+    margin-top: 10px;
+    min-height: 20px;
+    transition: all 0.3s ease;
+}
+.review-message.success { color: #4ade80; }
+.review-message.error { color: #f87171; }

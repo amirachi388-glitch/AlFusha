@@ -148,20 +148,49 @@
         </div>
 
         <!-- التقييم -->
-        <div class="rating-box">
-            <h3>ما هو تقييمك للمسلسل؟</h3>
-            <div class="rating-emojis">
-                <span class="emoji-item"><i class="fas fa-star"></i><small>جيد</small></span>
-                <span class="emoji-item"><i class="fas fa-face-laugh-squint"></i><small>مضحك</small></span>
-                <span class="emoji-item"><i class="fas fa-heart"></i><small>رائع</small></span>
-                <span class="emoji-item"><i class="fas fa-face-grin-stars"></i><small>مشوق</small></span>
-                <span class="emoji-item"><i class="fas fa-face-angry"></i><small>سيء</small></span>
-                <span class="emoji-item"><i class="fas fa-face-sad-tear"></i><small>محزن</small></span>
+        <!-- النبذة العامة -->
+            <div class="description-box">
+                <div class="description-header">
+                    <h3><i class="fas fa-info-circle"></i> نبذة عامة</h3>
+                </div>
+                <p id="detailsDescription">جارٍ التحميل...</p>
             </div>
-        </div>
-    </section>
 
-    <section id="library" class="section">
+            <!-- التقييم -->
+            <div class="rating-box">
+                <div class="avg-rating-header">
+                    <h3><i class="fas fa-star"></i> تقييم المسلسل</h3>
+                </div>
+                <div class="avg-rating-display">
+                    <div class="avg-rating-score">
+                        <span class="score-num" id="avgScore">9.5</span>
+                        <span class="score-total">/ 10</span>
+                    </div>
+                    <div class="avg-rating-stars" id="avgStars"></div>
+                    <span class="avg-rating-count" id="ratingCount">من 0 مشاهد</span>
+                </div>
+
+                <div class="user-review-section">
+                    <h4>ما هو تقييمك؟</h4>
+                    <div class="rating-emojis" id="ratingEmojis">
+                        <span class="emoji-item" data-value="5"><i class="fas fa-star"></i><small>جيد</small></span>
+                        <span class="emoji-item" data-value="4"><i class="fas fa-face-laugh-squint"></i><small>مضحك</small></span>
+                        <span class="emoji-item" data-value="5"><i class="fas fa-heart"></i><small>رائع</small></span>
+                        <span class="emoji-item" data-value="4"><i class="fas fa-face-grin-stars"></i><small>مشوق</small></span>
+                        <span class="emoji-item" data-value="2"><i class="fas fa-face-angry"></i><small>سيء</small></span>
+                        <span class="emoji-item" data-value="1"><i class="fas fa-face-sad-tear"></i><small>محزن</small></span>
+                    </div>
+                    <textarea id="reviewText" class="review-textarea" placeholder="اكتب رأيك عن المسلسل... (اختياري)" rows="3"></textarea>
+                    <button class="submit-review-btn" id="submitReviewBtn">
+                        <i class="fas fa-paper-plane"></i> إرسال التقييم
+                    </button>
+                    <div class="review-message" id="reviewMessage"></div>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="library" class="section">
         <div class="page-header"><h2>مكتبتي</h2><p>كل ما حفظته للفرجة لاحقاً</p></div>
         <div class="empty-state"><div class="empty-icon"><i class="fas fa-bookmark"></i></div><h4>مكتبتك فاضية</h4><p>احفظ الأفلام والمسلسلات اللي تعجبك.</p></div>
     </section>
