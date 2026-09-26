@@ -505,3 +505,8 @@ body {
 .hero-content {
     display: none;
 }
+
+/* إخفاء النص فوق الصورة */
+.hero-content {
+    display: none;
+}
