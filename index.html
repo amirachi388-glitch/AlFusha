@@ -2,68 +2,141 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0a0a">
     <title>الفسحة 🍿</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- خلفية متدرجة -->
+    <div class="bg-gradient"></div>
+
     <!-- القائمة الجانبية -->
-    <div class="sidebar" id="sidebar">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h2>الأقسام</h2>
+            <div class="brand">
+                <span class="brand-icon">🍿</span>
+                <div>
+                    <h2>الفسحة</h2>
+                    <p>وقت الفرجة الحلوة</p>
+                </div>
+            </div>
             <button class="close-btn" id="closeBtn"><i class="fas fa-times"></i></button>
         </div>
-        <ul>
-            <li onclick="showSection('home')"><i class="fas fa-home"></i> الرئيسية</li>
-            <li onclick="showSection('library')"><i class="fas fa-book"></i> مكتبتي</li>
-            <li onclick="showSection('live')"><i class="fas fa-tv"></i> البث المباشر</li>
-            <li onclick="showSection('nostalgia')"><i class="fas fa-history"></i> نستالجيا</li>
-            <li onclick="showSection('download')"><i class="fas fa-download"></i> تحميل التطبيق</li>
-        </ul>
-    </div>
+        <nav class="sidebar-nav">
+            <a class="nav-item active" data-section="home">
+                <i class="fas fa-house"></i><span>الرئيسية</span>
+            </a>
+            <a class="nav-item" data-section="library">
+                <i class="fas fa-bookmark"></i><span>مكتبتي</span>
+            </a>
+            <a class="nav-item" data-section="live">
+                <i class="fas fa-satellite-dish"></i><span>البث المباشر</span>
+            </a>
+            <a class="nav-item" data-section="nostalgia">
+                <i class="fas fa-clock-rotate-left"></i><span>نستالجيا</span>
+            </a>
+            <a class="nav-item" data-section="download">
+                <i class="fas fa-mobile-screen-button"></i><span>تحميل التطبيق</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <p>© 2026 الفسحة</p>
+        </div>
+    </aside>
 
     <!-- الهيدر -->
-    <header>
-        <div class="menu-icon" id="menuBtn"><i class="fas fa-bars"></i></div>
-        <div class="logo">
-            <h1>الفسحة 🍿</h1>
+    <header class="header">
+        <button class="icon-btn" id="menuBtn"><i class="fas fa-bars-staggered"></i></button>
+        <div class="header-brand">
+            <span>🍿</span>
+            <h1>الفسحة</h1>
         </div>
-        <div style="width: 40px;"></div> <!-- عشان يتوسط الشعار -->
+        <button class="icon-btn"><i class="fas fa-magnifying-glass"></i></button>
     </header>
 
-    <!-- المحتوى الرئيسي -->
-    <main>
+    <!-- المحتوى -->
+    <main class="main-content">
+
         <!-- قسم الرئيسية -->
         <section id="home" class="section active">
-            <h2>الرئيسية</h2>
-            <p>هذا القسم فاضي حالياً.</p>
+            <div class="welcome-card">
+                <div class="welcome-glow"></div>
+                <span class="welcome-badge"><i class="fas fa-star"></i> مرحباً بك</span>
+                <h2>أهلاً في <span class="gold">الفسحة</span> 🍿</h2>
+                <p>مكانك المفضل للاستمتاع بأفضل الأفلام والمسلسلات الكرتونية والأنمي في مكان واحد.</p>
+            </div>
+
+            <div class="section-title">
+                <h3><span class="dot"></span> أحدث الإضافات</h3>
+                <a href="#">عرض الكل</a>
+            </div>
+
+            <div class="empty-state">
+                <div class="empty-icon"><i class="fas fa-film"></i></div>
+                <h4>لا يوجد محتوى بعد</h4>
+                <p>قريباً راح نضيف أفضل الأفلام والمسلسلات هنا.</p>
+            </div>
         </section>
 
         <!-- قسم مكتبتي -->
         <section id="library" class="section">
-            <h2>مكتبتي</h2>
-            <p>هذا القسم فاضي حالياً.</p>
+            <div class="page-header">
+                <h2>مكتبتي</h2>
+                <p>كل ما حفظته للفرجة لاحقاً</p>
+            </div>
+            <div class="empty-state">
+                <div class="empty-icon"><i class="fas fa-bookmark"></i></div>
+                <h4>مكتبتك فاضية</h4>
+                <p>احفظ الأفلام والمسلسلات اللي تعجبك وبتلاقيها هنا.</p>
+            </div>
         </section>
 
         <!-- قسم البث المباشر -->
         <section id="live" class="section">
-            <h2>البث المباشر</h2>
-            <p>هذا القسم فاضي حالياً.</p>
+            <div class="page-header">
+                <h2>البث المباشر</h2>
+                <p>تابع القنوات في أي وقت</p>
+            </div>
+            <div class="empty-state">
+                <div class="empty-icon live-pulse"><i class="fas fa-satellite-dish"></i></div>
+                <h4>ما فيه بث حالياً</h4>
+                <p>قنوات البث المباشر راح تظهر هنا قريباً.</p>
+            </div>
         </section>
 
         <!-- قسم نستالجيا -->
         <section id="nostalgia" class="section">
-            <h2>نستالجيا</h2>
-            <p>هذا القسم فاضي حالياً.</p>
+            <div class="page-header">
+                <h2>نستالجيا</h2>
+                <p>رجع ذكريات الطفولة</p>
+            </div>
+            <div class="empty-state">
+                <div class="empty-icon"><i class="fas fa-clock-rotate-left"></i></div>
+                <h4>الذكريات في الطريق</h4>
+                <p>أفلام ومسلسلات الزمن الجميل راح تكون هنا.</p>
+            </div>
         </section>
 
         <!-- قسم تحميل التطبيق -->
         <section id="download" class="section">
-            <h2>تحميل التطبيق</h2>
-            <p>هذا القسم فاضي حالياً.</p>
+            <div class="page-header">
+                <h2>تحميل التطبيق</h2>
+                <p>استمتع بتجربة أفضل</p>
+            </div>
+            <div class="empty-state">
+                <div class="empty-icon"><i class="fas fa-mobile-screen-button"></i></div>
+                <h4>التطبيق قيد التطوير</h4>
+                <p>قريباً راح تقدر تحمل تطبيق الفسحة على جوالك.</p>
+            </div>
         </section>
+
     </main>
 
     <script src="app.js"></script>
