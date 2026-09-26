@@ -502,3 +502,85 @@ window.loadRating = function(contentId) {
 };
 
 console.log('🍿 الفسحة جاهزة!');
+
+// =========================================
+// 📚 نظام المكتبة
+// =========================================
+function updateLibraryButton() {
+    const content = contentData[0];
+    const btn = document.getElementById('saveToLibraryBtn');
+    if (!btn) return;
+    
+    const library = JSON.parse(localStorage.getItem('myLibrary') || '[]');
+    const isSaved = library.includes(content.id);
+    
+    btn.innerHTML = isSaved 
+        ? '<i class="fas fa-bookmark"></i>' 
+        : '<i class="far fa-bookmark"></i>';
+    btn.classList.toggle('saved', isSaved);
+}
+
+document.getElementById('saveToLibraryBtn')?.addEventListener('click', () => {
+    const content = contentData[0];
+    let library = JSON.parse(localStorage.getItem('myLibrary') || '[]');
+    
+    if (library.includes(content.id)) {
+        library = library.filter(id => id !== content.id);
+    } else {
+        library.push(content.id);
+    }
+    
+    localStorage.setItem('myLibrary', JSON.stringify(library));
+    updateLibraryButton();
+    renderLibrary();
+});
+
+function renderLibrary() {
+    const librarySection = document.getElementById('library');
+    if (!librarySection) return;
+    
+    const libraryIds = JSON.parse(localStorage.getItem('myLibrary') || '[]');
+    
+    if (libraryIds.length === 0) {
+        librarySection.innerHTML = `
+            <div class="page-header"><h2>مكتبتي</h2><p>كل ما حفظته للفرجة لاحقاً</p></div>
+            <div class="empty-state">
+                <div class="empty-icon"><i class="fas fa-bookmark"></i></div>
+                <h4>مكتبتك فاضية</h4>
+                <p>احفظ الأفلام والمسلسلات اللي تعجبك وبتلاقيها هنا.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    const savedContent = contentData.filter(c => libraryIds.includes(c.id));
+    
+    librarySection.innerHTML = `
+        <div class="page-header"><h2>مكتبتي</h2><p>${savedContent.length} عناصر محفوظة</p></div>
+        <div class="content-grid">
+            ${savedContent.map(item => `
+                <div class="content-card" onclick="showDetails('${item.id}')">
+                    <div class="content-card-poster">
+                        <img src="${item.banner}" alt="${item.title}">
+                        <span class="content-card-badge">${item.type}</span>
+                        <span class="content-card-rating"><i class="fas fa-star"></i> ${item.rating}</span>
+                    </div>
+                    <div class="content-card-info">
+                        <h4>${item.title}</h4>
+                        <p>${item.year} • ${item.episodes.length} حلقات</p>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+// عند فتح التفاصيل حدث زر المكتبة
+const oldShowDetails = window.showDetails;
+window.showDetails = function(id) {
+    if (oldShowDetails) oldShowDetails(id);
+    setTimeout(updateLibraryButton, 50);
+};
+
+// حدّث المكتبة عند التحميل
+renderLibrary();

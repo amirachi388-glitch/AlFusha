@@ -1074,3 +1074,80 @@ body {
     transform: scale(1.2);
     filter: drop-shadow(0 0 10px rgba(212,175,55,0.8));
 }
+
+/* ===== الإيموجي - مع النص تحت كل واحد ===== */
+.emoji-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px 4px;
+}
+.emoji-item small {
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+.emoji-item.selected small {
+    color: #f4d47c;
+    font-weight: 700;
+}
+.emoji-item i { font-size: 1.35rem; }
+
+/* ضبط المسافة قبل الحلقات */
+.hero-container + .episodes-box,
+.toolbar + .hero-container {
+    margin-top: 16px;
+}
+
+/* ===== زر المكتبة ===== */
+.description-header {
+    display: flex; align-items: center; justify-content: space-between;
+}
+.description-header h3 {
+    display: flex; align-items: center; gap: 8px;
+    flex: 1;
+}
+.save-btn {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    color: var(--gold);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+}
+.save-btn:active { transform: scale(0.92); }
+.save-btn.saved {
+    background: linear-gradient(135deg, #d4af37 0%, #f4d47c 100%);
+    border-color: transparent;
+    color: #0a0a0a;
+    box-shadow: 0 4px 15px rgba(212,175,55,0.4);
+}
+
+/* ===== صفحات قانونية ===== */
+.legal-box {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 50px 24px;
+    text-align: center;
+    min-height: 300px;
+    display: flex; align-items: center; justify-content: center;
+}
+.empty-legal .empty-icon {
+    width: 80px; height: 80px;
+    margin: 0 auto 20px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(212,175,55,0.15) 0%, rgba(212,175,55,0.05) 100%);
+    border: 1px solid rgba(212,175,55,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; color: var(--gold);
+}
+.empty-legal h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+.empty-legal p { font-size: 0.88rem; color: var(--text-dim); }
