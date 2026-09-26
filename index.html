@@ -15,7 +15,7 @@
 
     <div class="bg-gradient"></div>
 
-    <!-- ===== القائمة الجانبية ===== -->
+    <!-- القائمة الجانبية -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -38,7 +38,7 @@
         <div class="sidebar-footer"><p>© 2026 الفسحة</p></div>
     </aside>
 
-    <!-- ===== الهيدر ===== -->
+    <!-- الهيدر -->
     <header class="header">
         <button class="icon-btn" id="menuBtn"><i class="fas fa-bars-staggered"></i></button>
         <div class="header-brand">
@@ -48,7 +48,7 @@
         <button class="icon-btn" id="searchBtn"><i class="fas fa-magnifying-glass"></i></button>
     </header>
 
-    <!-- ===== شاشة البحث ===== -->
+    <!-- شاشة البحث -->
     <div class="search-overlay" id="searchOverlay">
         <div class="search-top">
             <button class="icon-btn" id="closeSearchBtn"><i class="fas fa-arrow-right"></i></button>
@@ -67,9 +67,8 @@
         </div>
     </div>
 
-    <!-- ===== المحتوى ===== -->
+    <!-- المحتوى -->
     <main class="main-content">
-
         <section id="home" class="section active">
             <div class="welcome-card">
                 <div class="welcome-glow"></div>
@@ -84,29 +83,29 @@
             </div>
 
             <!-- كرت المحقق كونان -->
-            <div class="featured-card" id="conanCard">
-                <div class="featured-poster">
-                    <img src="https://picsum.photos/seed/conan2024/400/600" alt="المحقق كونان" loading="lazy">
-                    <div class="play-badge"><i class="fas fa-play"></i></div>
-                </div>
-                <div class="featured-info">
-                    <h3>المحقق كونان</h3>
-                    <div class="featured-meta">
-                        <span class="rating"><i class="fas fa-star"></i> 9.5</span>
-                        <span>2024</span>
-                        <span>أنمي</span>
+            <div class="content-card" id="conanCard">
+                <div class="card-poster">
+                    <img src="https://picsum.photos/seed/conan2024/600/900" alt="المحقق كونان" loading="lazy">
+                    <div class="card-gradient"></div>
+                    <span class="card-type-badge">أنمي</span>
+                    <span class="card-rating-badge"><i class="fas fa-star"></i> 9.5</span>
+                    <div class="card-bottom">
+                        <h3>المحقق كونان</h3>
+                        <div class="card-meta">
+                            <span>2024</span>
+                            <span class="dot-sep">•</span>
+                            <span>3 حلقات</span>
+                            <span class="dot-sep">•</span>
+                            <span>HD</span>
+                        </div>
+                        <button class="card-watch-btn"><i class="fas fa-circle-play"></i> شاهد الآن</button>
                     </div>
-                    <p>المحقق الأسطوري شينيتشي كودو في مغامرة جديدة مليئة بالألغاز والتشويق.</p>
-                    <button class="watch-btn"><i class="fas fa-play"></i> شاهد الآن</button>
                 </div>
             </div>
         </section>
 
         <section id="library" class="section">
-            <div class="page-header">
-                <h2>مكتبتي</h2>
-                <p>كل ما حفظته للفرجة لاحقاً</p>
-            </div>
+            <div class="page-header"><h2>مكتبتي</h2><p>كل ما حفظته للفرجة لاحقاً</p></div>
             <div class="empty-state">
                 <div class="empty-icon"><i class="fas fa-bookmark"></i></div>
                 <h4>مكتبتك فاضية</h4>
@@ -140,21 +139,53 @@
                 <p>قريباً راح تقدر تحمل تطبيق الفسحة على جوالك.</p>
             </div>
         </section>
-
     </main>
 
-    <!-- ===== مشغل الفيديو ===== -->
+    <!-- ===== صفحة التفاصيل (Bottom Sheet) ===== -->
+    <div class="details-overlay" id="detailsOverlay">
+        <div class="details-sheet" id="detailsSheet">
+            <div class="sheet-handle"></div>
+
+            <!-- هيرو الصفحة -->
+            <div class="details-hero">
+                <img id="detailsPoster" src="" alt="">
+                <div class="details-hero-overlay"></div>
+                <button class="details-back-btn" id="closeDetailsBtn"><i class="fas fa-arrow-right"></i></button>
+                <div class="details-hero-content">
+                    <h2 id="detailsTitle"></h2>
+                    <div class="details-meta" id="detailsMeta"></div>
+                </div>
+            </div>
+
+            <!-- جسم الصفحة -->
+            <div class="details-body">
+                <div class="details-rating-row" id="detailsRatingRow"></div>
+                <p class="details-description" id="detailsDescription"></p>
+
+                <!-- قسم الحلقات -->
+                <div class="episodes-section" id="episodesSection">
+                    <div class="episodes-header">
+                        <h3><i class="fas fa-list"></i> الحلقات</h3>
+                        <span id="episodesCount"></span>
+                    </div>
+                    <div class="episodes-list" id="episodesList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- مشغل الفيديو -->
     <div class="player-overlay" id="playerOverlay">
         <div class="player-container" id="playerContainer">
-            <video id="mainVideo" playsinline preload="metadata" poster="https://picsum.photos/seed/conan2024/800/450">
-                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+            <video id="mainVideo" playsinline preload="metadata">
+                <source src="" type="video/mp4">
             </video>
 
             <div class="player-top hide-on-idle">
                 <button class="player-btn" id="closePlayerBtn"><i class="fas fa-arrow-right"></i></button>
                 <div class="player-title">
-                    <h3>المحقق كونان</h3>
-                    <p>الحلقة 1 • الموسم 1</p>
+                    <h3 id="playerTitle">المحقق كونان</h3>
+                    <p id="playerSubtitle">الحلقة 1</p>
                 </div>
             </div>
 

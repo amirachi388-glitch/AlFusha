@@ -514,3 +514,299 @@ body {
     .main-content { padding: 30px 24px; }
     .header { padding: 16px 30px; }
 }
+
+/* =========================================
+   🎴 كرت المحتوى الجديد (البوستر الكامل)
+   ========================================= */
+.content-card {
+    position: relative;
+    border-radius: 22px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid var(--card-border);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    animation: fadeUp 0.5s ease;
+}
+.content-card:active { transform: scale(0.98); }
+
+.card-poster {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+}
+.card-poster img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform 0.6s ease;
+}
+.content-card:active .card-poster img { transform: scale(1.05); }
+
+.card-gradient {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg,
+        rgba(0,0,0,0.3) 0%,
+        transparent 25%,
+        transparent 45%,
+        rgba(0,0,0,0.85) 80%,
+        rgba(0,0,0,0.98) 100%);
+    pointer-events: none;
+}
+
+.card-type-badge {
+    position: absolute; top: 14px; right: 14px;
+    background: rgba(212, 175, 55, 0.95);
+    color: #0a0a0a;
+    padding: 5px 12px; border-radius: 20px;
+    font-size: 0.72rem; font-weight: 700;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+.card-rating-badge {
+    position: absolute; top: 14px; left: 14px;
+    background: rgba(0, 0, 0, 0.65);
+    color: var(--gold-light);
+    padding: 5px 10px; border-radius: 20px;
+    font-size: 0.72rem; font-weight: 700;
+    display: flex; align-items: center; gap: 4px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+.card-rating-badge i { font-size: 0.65rem; color: var(--gold); }
+
+.card-bottom {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 20px;
+    display: flex; flex-direction: column; gap: 6px;
+}
+
+.card-bottom h3 {
+    font-size: 1.4rem; font-weight: 800;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    margin-bottom: 2px;
+}
+
+.card-meta {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.8rem; color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 12px;
+}
+.dot-sep { opacity: 0.5; font-size: 0.6rem; }
+
+.card-watch-btn {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    color: #0a0a0a; border: none;
+    padding: 10px 20px; border-radius: 24px;
+    font-family: inherit; font-weight: 800;
+    font-size: 0.85rem; cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
+}
+.card-watch-btn i { font-size: 1rem; }
+.card-watch-btn:active { transform: scale(0.94); }
+
+/* =========================================
+   📋 صفحة التفاصيل (Bottom Sheet)
+   ========================================= */
+.details-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    z-index: 250;
+    opacity: 0; visibility: hidden;
+    transition: var(--transition);
+    display: flex; align-items: flex-end; justify-content: center;
+}
+.details-overlay.active { opacity: 1; visibility: visible; }
+
+.details-sheet {
+    width: 100%; max-width: 700px;
+    height: 92vh;
+    background: linear-gradient(180deg, #141414 0%, #0a0a0a 100%);
+    border-radius: 28px 28px 0 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transform: translateY(100%);
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border-top: 1px solid rgba(212, 175, 55, 0.25);
+    box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.8);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(212, 175, 55, 0.4) transparent;
+}
+.details-overlay.active .details-sheet { transform: translateY(0); }
+.details-sheet::-webkit-scrollbar { width: 4px; }
+.details-sheet::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.4); border-radius: 4px; }
+
+.sheet-handle {
+    position: absolute; top: 10px; left: 50%;
+    transform: translateX(-50%);
+    width: 45px; height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    z-index: 10;
+}
+
+/* هيرو التفاصيل */
+.details-hero {
+    position: relative;
+    width: 100%; height: 380px;
+    overflow: hidden;
+}
+.details-hero img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+}
+.details-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg,
+        rgba(0,0,0,0.5) 0%,
+        transparent 30%,
+        rgba(20,20,20,0.7) 70%,
+        #141414 100%);
+}
+
+.details-back-btn {
+    position: absolute; top: 20px; right: 20px;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff; font-size: 1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: var(--transition);
+    z-index: 5;
+}
+.details-back-btn:active {
+    transform: scale(0.9);
+    background: rgba(212, 175, 55, 0.3);
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.details-hero-content {
+    position: absolute; bottom: 0; right: 0; left: 0;
+    padding: 20px;
+    z-index: 3;
+}
+.details-hero-content h2 {
+    font-size: 1.8rem; font-weight: 800;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 15px rgba(0,0,0,0.9);
+    line-height: 1.3;
+}
+.details-meta {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+.details-meta span { display: flex; align-items: center; gap: 4px; }
+
+/* جسم التفاصيل */
+.details-body { padding: 0 20px 30px; }
+
+.details-rating-row {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-bottom: 18px;
+}
+.rating-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px; border-radius: 20px;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--gold-light);
+    font-size: 0.8rem; font-weight: 600;
+}
+.rating-pill i { color: var(--gold); font-size: 0.75rem; }
+
+.details-description {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: #c5c5c5;
+    margin-bottom: 28px;
+}
+
+/* قسم الحلقات */
+.episodes-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 22px;
+}
+.episodes-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px;
+}
+.episodes-header h3 {
+    font-size: 1.15rem; font-weight: 700;
+    display: flex; align-items: center; gap: 10px;
+    color: var(--text);
+}
+.episodes-header h3 i { color: var(--gold); font-size: 1rem; }
+.episodes-header span {
+    font-size: 0.8rem; color: var(--text-dim);
+    background: var(--card); padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--card-border);
+}
+
+.episodes-list { display: flex; flex-direction: column; gap: 10px; }
+
+.episode-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+    animation: fadeUp 0.3s ease;
+}
+.episode-item:active {
+    transform: scale(0.98);
+    border-color: var(--gold);
+    background: rgba(212, 175, 55, 0.08);
+}
+
+.episode-number {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.05) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 800;
+    color: var(--gold);
+    flex-shrink: 0;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+}
+
+.episode-info { flex: 1; min-width: 0; }
+.episode-info h4 {
+    font-size: 0.95rem; font-weight: 600;
+    margin-bottom: 4px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.episode-info p {
+    font-size: 0.75rem; color: var(--text-dim);
+    display: flex; align-items: center; gap: 6px;
+}
+
+.episode-play-icon {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    color: #0a0a0a;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    padding-left: 2px;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+    transition: var(--transition);
+}
+.episode-item:active .episode-play-icon { transform: scale(0.9); }

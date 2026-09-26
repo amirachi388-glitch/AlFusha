@@ -10,9 +10,29 @@ const contentData = [
         type: 'أنمي',
         year: '2024',
         rating: '9.5',
-        poster: 'https://picsum.photos/seed/conan2024/400/600',
-        description: 'المحقق الأسطوري شينيتشي كودو في مغامرة جديدة مليئة بالألغاز والتشويق.',
-        videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+        quality: 'HD',
+        poster: 'https://picsum.photos/seed/conan2024/600/900',
+        description: 'المحقق الأسطوري شينيتشي كودو يعود في مغامرة جديدة مليئة بالألغاز والتشويق. شاهد الحلقات الحصرية بجودة عالية مع ترجمة احترافية، وعش أجواء التحقيق مع كونان وأصدقائه في حل قضايا غامضة ومعقدة.',
+        episodes: [
+            {
+                number: 1,
+                title: 'البداية الجديدة',
+                duration: '24 دقيقة',
+                videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            },
+            {
+                number: 2,
+                title: 'اللغز الغامض',
+                duration: '24 دقيقة',
+                videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
+            },
+            {
+                number: 3,
+                title: 'المواجهة الأخيرة',
+                duration: '24 دقيقة',
+                videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'
+            }
+        ]
     }
 ];
 
@@ -76,7 +96,6 @@ function closeSearch() {
 searchBtn.addEventListener('click', openSearch);
 closeSearchBtn.addEventListener('click', closeSearch);
 
-// نصيحة البحث الافتراضية
 function showSearchHint() {
     searchResults.innerHTML = `
         <div class="search-hint">
@@ -87,17 +106,10 @@ function showSearchHint() {
     `;
 }
 
-// البحث الفوري
 searchInput.addEventListener('input', (e) => {
     const query = e.target.value.trim().toLowerCase();
-
-    if (query) {
-        clearSearchBtn.classList.add('visible');
-    } else {
-        clearSearchBtn.classList.remove('visible');
-        showSearchHint();
-        return;
-    }
+    if (query) clearSearchBtn.classList.add('visible');
+    else { clearSearchBtn.classList.remove('visible'); showSearchHint(); return; }
 
     const results = contentData.filter(item =>
         item.title.toLowerCase().includes(query) ||
@@ -116,10 +128,8 @@ searchInput.addEventListener('input', (e) => {
     }
 
     searchResults.innerHTML = results.map(item => `
-        <div class="search-result-item" onclick="playContent('${item.id}')">
-            <div class="result-poster">
-                <img src="${item.poster}" alt="${item.title}">
-            </div>
+        <div class="search-result-item" onclick="openDetails('${item.id}')">
+            <div class="result-poster"><img src="${item.poster}" alt="${item.title}"></div>
             <div class="result-info">
                 <h4>${item.title}</h4>
                 <div class="result-meta">
@@ -137,6 +147,74 @@ clearSearchBtn.addEventListener('click', () => {
     clearSearchBtn.classList.remove('visible');
     searchInput.focus();
     showSearchHint();
+});
+
+// =========================================
+// 📋 صفحة التفاصيل
+// =========================================
+const detailsOverlay = document.getElementById('detailsOverlay');
+const closeDetailsBtn = document.getElementById('closeDetailsBtn');
+const detailsPoster = document.getElementById('detailsPoster');
+const detailsTitle = document.getElementById('detailsTitle');
+const detailsMeta = document.getElementById('detailsMeta');
+const detailsRatingRow = document.getElementById('detailsRatingRow');
+const detailsDescription = document.getElementById('detailsDescription');
+const episodesList = document.getElementById('episodesList');
+const episodesCount = document.getElementById('episodesCount');
+
+let currentContent = null;
+
+function openDetails(id) {
+    const content = contentData.find(c => c.id === id);
+    if (!content) return;
+    currentContent = content;
+
+    // تعبئة البيانات
+    detailsPoster.src = content.poster;
+    detailsPoster.alt = content.title;
+    detailsTitle.textContent = content.title;
+    detailsMeta.innerHTML = `
+        <span><i class="fas fa-calendar"></i> ${content.year}</span>
+        <span><i class="fas fa-tag"></i> ${content.type}</span>
+        <span><i class="fas fa-closed-captioning"></i> ${content.quality}</span>
+    `;
+
+    detailsRatingRow.innerHTML = `
+        <div class="rating-pill"><i class="fas fa-star"></i> ${content.rating} تقييم</div>
+        <div class="rating-pill"><i class="fas fa-layer-group"></i> ${content.episodes.length} حلقات</div>
+    `;
+
+    detailsDescription.textContent = content.description;
+
+    // تعبئة الحلقات
+    episodesCount.textContent = `${content.episodes.length} حلقات`;
+    episodesList.innerHTML = content.episodes.map(ep => `
+        <div class="episode-item" onclick="playEpisode('${content.id}', ${ep.number})">
+            <div class="episode-number">${ep.number}</div>
+            <div class="episode-info">
+                <h4>${ep.title}</h4>
+                <p><i class="fas fa-clock"></i> ${ep.duration}</p>
+            </div>
+            <div class="episode-play-icon"><i class="fas fa-play"></i></div>
+        </div>
+    `).join('');
+
+    // إغلاق البحث إذا مفتوح
+    closeSearch();
+
+    // فتح الصفحة
+    detailsOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('detailsSheet').scrollTop = 0;
+}
+
+function closeDetails() {
+    detailsOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
+closeDetailsBtn.addEventListener('click', closeDetails);
+detailsOverlay.addEventListener('click', (e) => {
+    if (e.target === detailsOverlay) closeDetails();
 });
 
 // =========================================
@@ -158,28 +236,32 @@ const totalTimeEl = document.getElementById('totalTime');
 const playerLoading = document.getElementById('playerLoading');
 const playerControls = document.getElementById('playerControls');
 const playerTop = document.querySelector('.player-top');
+const playerTitle = document.getElementById('playerTitle');
+const playerSubtitle = document.getElementById('playerSubtitle');
 
 let idleTimer = null;
 let isSeeking = false;
 
-// تشغيل محتوى
-function playContent(id) {
-    const content = contentData.find(c => c.id === id);
+// تشغيل حلقة محددة
+function playEpisode(contentId, episodeNumber) {
+    const content = contentData.find(c => c.id === contentId);
     if (!content) return;
+    const episode = content.episodes.find(e => e.number === episodeNumber);
+    if (!episode) return;
 
-    // إغلاق شاشة البحث
-    closeSearch();
+    // تحديث عناوين المشغل
+    playerTitle.textContent = content.title;
+    playerSubtitle.textContent = `الحلقة ${episode.number} • ${episode.title}`;
 
-    // تعيين الفيديو
+    // تحميل الفيديو
     const source = video.querySelector('source');
-    source.src = content.videoUrl;
+    source.src = episode.videoUrl;
     video.load();
 
     // فتح المشغل
     playerOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
 
-    // محاولة التشغيل تلقائياً
     setTimeout(() => {
         video.play().catch(() => {});
     }, 300);
@@ -187,25 +269,20 @@ function playContent(id) {
     resetIdleTimer();
 }
 
-// إغلاق المشغل
 function closePlayer() {
     video.pause();
     video.currentTime = 0;
     playerOverlay.classList.remove('active');
     document.body.style.overflow = '';
-    if (document.fullscreenElement) {
-        document.exitFullscreen().catch(() => {});
-    }
-    if (document.webkitFullscreenElement) {
-        document.webkitExitFullscreen();
-    }
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    if (document.webkitFullscreenElement) document.webkitExitFullscreen();
 }
 closePlayerBtn.addEventListener('click', closePlayer);
 
-// تحديث أيقونة التشغيل
 function updatePlayIcon() {
-    const icon = video.paused ? 'fa-play' : 'fa-pause';
-    playPauseBtn.innerHTML = `<i class="fas ${icon}"></i>`;
+    playPauseBtn.innerHTML = video.paused
+        ? '<i class="fas fa-play"></i>'
+        : '<i class="fas fa-pause"></i>';
     if (video.paused) {
         bigPlayBtn.classList.remove('hidden');
         bigPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
@@ -214,7 +291,6 @@ function updatePlayIcon() {
     }
 }
 
-// تشغيل/إيقاف
 function togglePlay() {
     if (video.paused) video.play().catch(() => {});
     else video.pause();
@@ -222,8 +298,8 @@ function togglePlay() {
 }
 playPauseBtn.addEventListener('click', togglePlay);
 bigPlayBtn.addEventListener('click', togglePlay);
+
 video.addEventListener('click', () => {
-    // اضغط على الفيديو = أظهر/أخف التحكم
     if (playerControls.classList.contains('idle')) {
         playerControls.classList.remove('idle');
         playerTop.classList.remove('idle');
@@ -236,7 +312,6 @@ video.addEventListener('click', () => {
 video.addEventListener('play', updatePlayIcon);
 video.addEventListener('pause', updatePlayIcon);
 
-// كتم الصوت
 muteBtn.addEventListener('click', () => {
     video.muted = !video.muted;
     muteBtn.innerHTML = video.muted
@@ -245,13 +320,11 @@ muteBtn.addEventListener('click', () => {
     resetIdleTimer();
 });
 
-// شاشة كاملة
 fullscreenBtn.addEventListener('click', () => {
     const elem = playerContainer;
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
         if (elem.requestFullscreen) elem.requestFullscreen();
         else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-        else if (elem.webkitEnterFullscreen) elem.webkitEnterFullscreen();
         fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
     } else {
         if (document.exitFullscreen) document.exitFullscreen();
@@ -261,7 +334,6 @@ fullscreenBtn.addEventListener('click', () => {
     resetIdleTimer();
 });
 
-// تنسيق الوقت
 function formatTime(sec) {
     if (!sec || isNaN(sec)) return '0:00';
     const m = Math.floor(sec / 60);
@@ -269,10 +341,8 @@ function formatTime(sec) {
     return `${m}:${s < 10 ? '0' : ''}${s}`;
 }
 
-// تحديث شريط التقدم
 function updateProgress() {
-    if (isSeeking) return;
-    if (!video.duration) return;
+    if (isSeeking || !video.duration) return;
     const percent = (video.currentTime / video.duration) * 100;
     progressPlayed.style.width = percent + '%';
     currentTimeEl.textContent = formatTime(video.currentTime);
@@ -285,25 +355,20 @@ video.addEventListener('loadedmetadata', () => {
 video.addEventListener('progress', () => {
     if (video.buffered.length > 0 && video.duration) {
         const bufferedEnd = video.buffered.end(video.buffered.length - 1);
-        const percent = (bufferedEnd / video.duration) * 100;
-        progressBuffer.style.width = percent + '%';
+        progressBuffer.style.width = (bufferedEnd / video.duration * 100) + '%';
     }
 });
 
-// مؤشر التحميل
 video.addEventListener('waiting', () => playerLoading.classList.add('visible'));
 video.addEventListener('playing', () => playerLoading.classList.remove('visible'));
 video.addEventListener('canplay', () => playerLoading.classList.remove('visible'));
 
-// السحب على شريط التقدم
 function seekFromEvent(e) {
     const rect = progressWrap.getBoundingClientRect();
     let x;
     if (e.touches) x = e.touches[0].clientX - rect.left;
     else x = e.clientX - rect.left;
-
-    let percent = x / rect.width;
-    percent = Math.max(0, Math.min(1, percent));
+    let percent = Math.max(0, Math.min(1, x / rect.width));
     const time = percent * video.duration;
     progressPlayed.style.width = (percent * 100) + '%';
     currentTimeEl.textContent = formatTime(time);
@@ -311,41 +376,24 @@ function seekFromEvent(e) {
 }
 
 let seekStart = false;
-progressWrap.addEventListener('mousedown', (e) => {
-    isSeeking = true;
-    seekFromEvent(e);
-});
-progressWrap.addEventListener('mousemove', (e) => {
-    if (isSeeking) seekFromEvent(e);
-});
+progressWrap.addEventListener('mousedown', (e) => { isSeeking = true; seekFromEvent(e); });
+progressWrap.addEventListener('mousemove', (e) => { if (isSeeking) seekFromEvent(e); });
 window.addEventListener('mouseup', (e) => {
-    if (isSeeking) {
-        video.currentTime = seekFromEvent(e);
-        isSeeking = false;
-    }
+    if (isSeeking) { video.currentTime = seekFromEvent(e); isSeeking = false; }
 });
-
-progressWrap.addEventListener('touchstart', (e) => {
-    isSeeking = true;
-    seekFromEvent(e);
-    resetIdleTimer();
-}, { passive: true });
-progressWrap.addEventListener('touchmove', (e) => {
-    if (isSeeking) seekFromEvent(e);
-}, { passive: true });
+progressWrap.addEventListener('touchstart', (e) => { isSeeking = true; seekFromEvent(e); resetIdleTimer(); }, { passive: true });
+progressWrap.addEventListener('touchmove', (e) => { if (isSeeking) seekFromEvent(e); }, { passive: true });
 progressWrap.addEventListener('touchend', (e) => {
     if (isSeeking) {
         const rect = progressWrap.getBoundingClientRect();
         const touch = e.changedTouches[0];
         const x = touch.clientX - rect.left;
-        let percent = x / rect.width;
-        percent = Math.max(0, Math.min(1, percent));
+        let percent = Math.max(0, Math.min(1, x / rect.width));
         video.currentTime = percent * video.duration;
         isSeeking = false;
     }
 }, { passive: true });
 
-// إخفاء تلقائي للتحكم
 function resetIdleTimer() {
     playerControls.classList.remove('idle');
     playerTop.classList.remove('idle');
@@ -357,28 +405,26 @@ function resetIdleTimer() {
         }
     }, 3000);
 }
-
 playerContainer.addEventListener('mousemove', resetIdleTimer);
 playerContainer.addEventListener('touchstart', resetIdleTimer);
-playerContainer.addEventListener('click', (e) => {
-    if (e.target === video || e.target === playerContainer) resetIdleTimer();
-});
 
-// اختصارات لوحة المفاتيح
 document.addEventListener('keydown', (e) => {
     if (!playerOverlay.classList.contains('active')) return;
     if (e.key === ' ' || e.key === 'k') { e.preventDefault(); togglePlay(); }
     if (e.key === 'ArrowRight') { video.currentTime += 5; resetIdleTimer(); }
     if (e.key === 'ArrowLeft') { video.currentTime -= 5; resetIdleTimer(); }
-    if (e.key === 'm') { muteBtn.click(); }
-    if (e.key === 'f') { fullscreenBtn.click(); }
-    if (e.key === 'Escape') { closePlayer(); }
+    if (e.key === 'm') muteBtn.click();
+    if (e.key === 'f') fullscreenBtn.click();
+    if (e.key === 'Escape') closePlayer();
 });
 
-// ربط الكرت بالمشغل
-document.getElementById('conanCard').addEventListener('click', () => playContent('conan'));
+// =========================================
+// 🔗 ربط الأحداث
+// =========================================
+document.getElementById('conanCard').addEventListener('click', () => openDetails('conan'));
 
-// دالة عامة عشان نقدر نستخدمها من أي مكان
-window.playContent = playContent;
+// دوال عامة
+window.openDetails = openDetails;
+window.playEpisode = playEpisode;
 
 console.log('🍿 الفسحة جاهزة!');
