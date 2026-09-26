@@ -1,23 +1,33 @@
 /* =========================================
-   🎬 مشغل الفيديو الاحترافي + شريط الأدوات
+   🎬 مشغل الفيديو + شريط الأدوات
    ========================================= */
 
-/* ===== الشريط العلوي للمشغل ===== */
+/* ===== حاوية الفيديو ===== */
+.hero-container {
+    aspect-ratio: 16 / 9;
+    max-height: 240px;
+    border-radius: 16px;
+    margin-bottom: 14px;
+}
+
+/* ===== الشريط العلوي ===== */
 .player-topbar {
-    padding: 12px 14px;
-    background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, transparent 100%);
-    display: flex; align-items: center; gap: 12px;
+    position: absolute; top: 0; left: 0; right: 0;
+    padding: 10px 12px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+    display: flex; align-items: center; gap: 10px;
     transition: opacity 0.3s ease;
+    z-index: 5;
 }
 
 .player-topbar .player-btn {
-    width: 36px; height: 36px;
-    border-radius: 11px;
-    background: rgba(20, 20, 20, 0.6);
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: rgba(15, 15, 15, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    color: #fff; font-size: 0.85rem;
+    color: #fff; font-size: 0.8rem;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; transition: all 0.25s ease;
     flex-shrink: 0;
@@ -33,30 +43,31 @@
     flex: 1; min-width: 0; text-align: right;
 }
 .player-info h4 {
-    font-size: 0.88rem; font-weight: 700;
-    color: #fff; margin-bottom: 2px;
+    font-size: 0.82rem; font-weight: 700;
+    color: #fff; margin-bottom: 1px;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     text-shadow: 0 1px 4px rgba(0,0,0,0.8);
-    letter-spacing: 0.2px;
 }
 .player-info span {
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     color: rgba(255, 255, 255, 0.65);
     text-shadow: 0 1px 4px rgba(0,0,0,0.8);
     display: block;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
-/* ===== الشريط السفلي للمشغل ===== */
+/* ===== الشريط السفلي ===== */
 .player-bottombar {
-    padding: 22px 14px 14px;
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 20px 12px 10px;
     background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.35) 55%, transparent 100%);
     transition: opacity 0.3s ease;
+    z-index: 5;
 }
 
-/* شريط التقدم النحيف */
+/* شريط التقدم */
 .progress-wrap {
-    position: relative; height: 20px;
+    position: relative; height: 14px;
     display: flex; align-items: center;
     cursor: pointer; margin-bottom: 6px;
     direction: ltr; touch-action: none;
@@ -71,7 +82,7 @@
 .progress-buffer {
     position: absolute; left: 0; top: 50%;
     transform: translateY(-50%);
-    height: 3px; background: rgba(255,255,255,0.35);
+    height: 3px; background: rgba(255,255,255,0.32);
     border-radius: 3px; width: 0%;
     transition: width 0.3s ease;
 }
@@ -81,72 +92,72 @@
     height: 3px;
     background: linear-gradient(90deg, #d4af37 0%, #f4d47c 100%);
     border-radius: 3px; width: 0%;
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
-    transition: width 0.1s linear;
+    box-shadow: 0 0 5px rgba(212, 175, 55, 0.6);
 }
 .progress-thumb {
     position: absolute; right: -6px; top: 50%;
     transform: translateY(-50%) scale(0);
-    width: 12px; height: 12px;
+    width: 11px; height: 11px;
     background: #f4d47c; border-radius: 50%;
-    box-shadow: 0 0 10px rgba(212,175,55,0.8), 0 2px 4px rgba(0,0,0,0.5);
+    box-shadow: 0 0 8px rgba(212,175,55,0.8);
     transition: transform 0.2s ease;
 }
-.progress-wrap:hover .progress-thumb,
 .progress-wrap.seeking .progress-thumb { transform: translateY(-50%) scale(1); }
 
-/* صف الأزرار */
+/* صف الأزرار - مرتب ونظيف */
 .controls-row {
-    display: flex; align-items: center; gap: 2px;
+    display: flex; align-items: center;
+    gap: 2px; direction: ltr;
 }
 .player-bottombar .player-btn {
-    width: 40px; height: 40px; border-radius: 50%;
+    width: 36px; height: 36px;
+    border-radius: 50%;
     background: transparent; border: none;
-    color: #fff; font-size: 0.95rem;
+    color: #fff; font-size: 0.9rem;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; transition: all 0.2s ease;
     flex-shrink: 0;
 }
 .player-bottombar .player-btn:active {
-    background: rgba(212, 175, 55, 0.25);
+    background: rgba(212, 175, 55, 0.2);
     transform: scale(0.9);
 }
 .time-display {
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.68rem;
     font-variant-numeric: tabular-nums;
-    direction: ltr; font-weight: 500;
-    letter-spacing: 0.5px; padding: 0 8px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    padding: 0 8px;
     white-space: nowrap;
 }
 
-/* زر التشغيل الكبير */
+/* زر التشغيل الكبير - مصغر وأنظف */
 .big-play-btn {
     position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 68px; height: 68px; border-radius: 50%;
+    width: 54px; height: 54px; border-radius: 50%;
     background: rgba(212, 175, 55, 0.95);
     border: none; color: #0a0a0a;
-    font-size: 1.4rem; cursor: pointer;
+    font-size: 1.1rem; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    padding-left: 5px;
+    padding-left: 4px;
     box-shadow:
-        0 0 0 6px rgba(212, 175, 55, 0.18),
-        0 8px 30px rgba(0, 0, 0, 0.5),
-        0 0 40px rgba(212, 175, 55, 0.4);
+        0 0 0 4px rgba(212, 175, 55, 0.15),
+        0 6px 20px rgba(0, 0, 0, 0.5);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 4;
 }
 .big-play-btn::before {
     content: ''; position: absolute; inset: 0;
     border-radius: 50%;
-    border: 2px solid rgba(212, 175, 55, 0.5);
-    animation: pulseRing 2s ease-out infinite;
+    border: 1.5px solid rgba(212, 175, 55, 0.4);
+    animation: pulseRing 2.5s ease-out infinite;
     pointer-events: none;
 }
 @keyframes pulseRing {
-    0% { transform: scale(1); opacity: 0.8; }
-    100% { transform: scale(1.5); opacity: 0; }
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.4); opacity: 0; }
 }
 .big-play-btn:active { transform: translate(-50%, -50%) scale(0.92); }
 .big-play-btn.hidden {
@@ -163,7 +174,7 @@
 }
 .player-loading.visible { opacity: 1; }
 .spinner {
-    width: 44px; height: 44px;
+    width: 36px; height: 36px;
     border: 3px solid rgba(212, 175, 55, 0.15);
     border-top-color: #d4af37;
     border-radius: 50%;
@@ -172,27 +183,25 @@
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* =========================================
-   🛠️ شريط الأدوات الاحترافي
+   🛠️ شريط الأدوات - مصغر قليلاً
    ========================================= */
 .toolbar {
-    display: flex; gap: 10px;
+    display: flex; gap: 8px;
     background: transparent; border: none;
-    padding: 0; margin-bottom: 18px;
+    padding: 0; margin-bottom: 16px;
 }
-.toolbar-group {
-    display: flex; gap: 10px; flex: 1;
-}
+.toolbar-group { display: flex; gap: 8px; flex: 1; }
 .tool-btn {
     flex: 1;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    gap: 6px; padding: 14px 6px;
+    gap: 4px; padding: 10px 4px;
     background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
     border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
+    border-radius: 14px;
     color: var(--text, #f5f5f5);
     font-family: inherit;
-    font-size: 0.7rem; font-weight: 500;
+    font-size: 0.64rem; font-weight: 500;
     cursor: pointer; transition: all 0.25s ease;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -205,9 +214,9 @@
     pointer-events: none;
 }
 .tool-btn i {
-    font-size: 1.1rem; color: #d4af37;
+    font-size: 0.92rem; color: #d4af37;
     transition: all 0.25s ease;
-    filter: drop-shadow(0 0 4px rgba(212,175,55,0.3));
+    filter: drop-shadow(0 0 3px rgba(212,175,55,0.3));
 }
 .tool-btn:active {
     transform: scale(0.95);
@@ -217,11 +226,11 @@
 .tool-btn:active::before { opacity: 1; }
 .tool-btn:active i {
     transform: scale(1.1);
-    filter: drop-shadow(0 0 8px rgba(212,175,55,0.6));
+    filter: drop-shadow(0 0 6px rgba(212,175,55,0.6));
 }
 .tool-btn span {
     color: #9ca3af;
-    transition: color 0.25s ease;
     white-space: nowrap;
+    transition: color 0.25s ease;
 }
 .tool-btn:active span { color: #f4d47c; }

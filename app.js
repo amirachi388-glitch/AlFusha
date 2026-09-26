@@ -321,3 +321,56 @@ clearSearchBtn.addEventListener('click', () => {
 window.playEpisode = playEpisode;
 window.closeSearch = closeSearch;
 console.log('🍿 الفسحة جاهزة!');
+
+// =========================================
+// 🏠 الصفحة الرئيسية - عرض الشبكة
+// =========================================
+function renderContentGrid() {
+    const grid = document.getElementById('contentGrid');
+    if (!grid) return;
+    
+    grid.innerHTML = contentData.map(item => `
+        <div class="content-card" onclick="showDetails('${item.id}')">
+            <div class="content-card-poster">
+                <img src="${item.banner}" alt="${item.title}">
+                <span class="content-card-badge">${item.type}</span>
+                <span class="content-card-rating"><i class="fas fa-star"></i> ${item.rating}</span>
+            </div>
+            <div class="content-card-info">
+                <h4>${item.title}</h4>
+                <p>${item.year} • ${item.episodes.length} حلقات</p>
+            </div>
+        </div>
+    `).join('');
+}
+renderContentGrid();
+
+// فتح صفحة التفاصيل
+function showDetails(id) {
+    const content = contentData.find(c => c.id === id);
+    if (!content) return;
+
+    // إخفاء الرئيسية، إظهار التفاصيل
+    document.getElementById('home').classList.remove('active');
+    document.getElementById('details').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // تعبئة بيانات التفاصيل
+    bannerImage.src = content.banner;
+    bannerTitle.textContent = content.title;
+    if (!content.episodes || content.episodes.length === 0) {
+        document.getElementById('episodesList').innerHTML = `<div class="empty-episodes"><i class="fas fa-film"></i><p>لا توجد حلقات متاحة حالياً</p></div>`;
+        document.getElementById('episodesCount').textContent = '';
+    }
+}
+
+// رجوع من التفاصيل للرئيسية
+document.getElementById('closeVideoBtn').addEventListener('click', () => {
+    if (!heroPlayer.classList.contains('active')) {
+        document.getElementById('details').classList.remove('active');
+        document.getElementById('home').classList.add('active');
+    }
+});
+
+window.showDetails = showDetails;
+window.renderContentGrid = renderContentGrid;
