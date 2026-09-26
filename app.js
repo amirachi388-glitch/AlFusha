@@ -306,10 +306,19 @@ searchInput.addEventListener('input', (e) => {
         return;
     }
     searchResults.innerHTML = results.map(item => `
-        <div class="episode-item" onclick="closeSearch(); playEpisode(1);">
-            <div class="episode-number"><i class="fas fa-film" style="font-size:0.8rem;"></i></div>
-            <div class="episode-info"><h4>${item.title}</h4><p>${item.year} • ${item.type}</p></div>
-            <div class="episode-play-icon"><i class="fas fa-play"></i></div>
+        <div class="search-result-card" onclick="closeSearch(); showDetails('${item.id}');">
+            <div class="search-result-thumb">
+                <img src="${item.banner}" alt="${item.title}">
+            </div>
+            <div class="search-result-info">
+                <h4>${item.title}</h4>
+                <div class="search-result-meta">
+                    <span class="rating-tag"><i class="fas fa-star"></i> ${item.rating}</span>
+                    <span>${item.year}</span>
+                    <span>${item.type}</span>
+                </div>
+            </div>
+            <div class="search-result-play"><i class="fas fa-play"></i></div>
         </div>
     `).join('');
 });
