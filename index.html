@@ -5,29 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الفسحة 🍿</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+
+    <!-- القائمة الجانبية (تظهر وتختفي) -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-popcorn logo-icon"></i>
+            <h2>الفسحة</h2>
+            <button class="close-btn" id="closeBtn"><i class="fas fa-times"></i></button>
+        </div>
+        <ul>
+            <li><i class="fas fa-home"></i> الرئيسية</li>
+            <li><i class="fas fa-book"></i> مكتبتي</li>
+            <li><i class="fas fa-tv"></i> البث المباشر</li>
+            <li><i class="fas fa-history"></i> نستالجيا</li>
+            <li><i class="fas fa-download"></i> تحميل التطبيق</li>
+        </ul>
+    </div>
+
+    <!-- الهيدر -->
     <header>
-        <h1>الفسحة 🍿</h1>
+        <div class="menu-icon" id="menuBtn"><i class="fas fa-bars"></i></div>
+        <div class="logo">
+            <i class="fas fa-popcorn logo-icon"></i>
+            <h1>الفسحة</h1>
+        </div>
+        <div class="search-icon"><i class="fas fa-search"></i></div>
     </header>
-    
+
+    <!-- المحتوى -->
     <main>
-        <h2>تجربة صورة وفيديو</h2>
-        
-        <!-- تجربة صورة -->
-        <div class="test-card">
-            <img src="https://picsum.photos/400/200" alt="صورة تجريبية">
-            <p>هذي صورة تجريبية</p>
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="ابحث في الفسحة...">
         </div>
 
-        <!-- تجربة فيديو -->
-        <div class="test-card">
-            <video controls width="100%">
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                متصفحك لا يدعم الفيديو.
-            </video>
-            <p>هذا فيديو تجريبي</p>
+        <div class="section-header">
+            <h2>أحدث الإضافات</h2>
+            <span>عرض الكل</span>
+        </div>
+
+        <!-- شبكة البطاقات -->
+        <div class="movies-grid">
+            <!-- بطاقة 1 -->
+            <div class="movie-card">
+                <img src="https://picsum.photos/300/450?random=1" alt="بوستر تجريبي">
+                <h3>فيلم تجريبي 1</h3>
+            </div>
+            <!-- بطاقة 2 -->
+            <div class="movie-card">
+                <img src="https://picsum.photos/300/450?random=2" alt="بوستر تجريبي">
+                <h3>مسلسل تجريبي 2</h3>
+            </div>
+            <!-- بطاقة 3 -->
+            <div class="movie-card">
+                <img src="https://picsum.photos/300/450?random=3" alt="بوستر تجريبي">
+                <h3>فيلم تجريبي 3</h3>
+            </div>
+            <!-- بطاقة 4 -->
+            <div class="movie-card">
+                <img src="https://picsum.photos/300/450?random=4" alt="بوستر تجريبي">
+                <h3>مسلسل تجريبي 4</h3>
+            </div>
         </div>
     </main>
+
+    <script src="app.js"></script>
 </body>
 </html>
