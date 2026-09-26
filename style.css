@@ -1167,3 +1167,195 @@ body {
     color: #fff;
 }
 .legal-box { margin-bottom: 20px; }
+
+/* =========================================
+   📜 صفحة شروط الخدمة - تصميم احترافي
+   ========================================= */
+.terms-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 4px 0 30px;
+}
+
+/* رأس الصفحة */
+.terms-header {
+    text-align: center;
+    padding: 30px 20px 26px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(212,175,55,0.02) 100%);
+    border: 1px solid rgba(212,175,55,0.22);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+.terms-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(212,175,55,0.25), transparent 70%);
+    filter: blur(30px);
+    pointer-events: none;
+}
+.terms-icon {
+    width: 64px; height: 64px;
+    margin: 0 auto 14px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0.05) 100%);
+    border: 1px solid rgba(212,175,55,0.35);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; color: var(--gold);
+    box-shadow: 0 0 30px rgba(212,175,55,0.2);
+    position: relative; z-index: 1;
+}
+.terms-header h1 {
+    font-size: 1.55rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, #f4d47c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 6px;
+    position: relative; z-index: 1;
+}
+.terms-date {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    position: relative; z-index: 1;
+}
+
+/* جسم الصفحة */
+.terms-body {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 24px 22px;
+    text-align: right;
+    direction: rtl;
+}
+
+.terms-intro {
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: #c5c5c5;
+    padding: 16px;
+    background: rgba(212,175,55,0.06);
+    border-right: 3px solid var(--gold);
+    border-radius: 10px;
+    margin-bottom: 28px;
+}
+.terms-intro strong {
+    color: var(--gold-light);
+    font-weight: 700;
+}
+
+/* الأقسام */
+.terms-item {
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.terms-item.last {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.terms-item-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    text-align: right;
+}
+
+.terms-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    height: 32px;
+    padding: 0 8px;
+    background: linear-gradient(135deg, #d4af37 0%, #f4d47c 100%);
+    color: #0a0a0a;
+    font-size: 0.85rem;
+    font-weight: 900;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+    flex-shrink: 0;
+}
+
+.terms-item-head h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.terms-item p {
+    font-size: 0.87rem;
+    line-height: 1.9;
+    color: #b8b8b8;
+    margin-bottom: 10px;
+    text-align: right;
+}
+.terms-item p:last-child { margin-bottom: 0; }
+
+.terms-label {
+    color: var(--gold-light) !important;
+    font-weight: 600 !important;
+    margin-top: 14px !important;
+    margin-bottom: 10px !important;
+}
+
+.terms-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 8px 0;
+}
+.terms-list li {
+    font-size: 0.85rem;
+    line-height: 1.85;
+    color: #b8b8b8;
+    padding: 7px 22px 7px 0;
+    position: relative;
+    text-align: right;
+}
+.terms-list li::before {
+    content: '';
+    position: absolute;
+    right: 4px;
+    top: 16px;
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(212,175,55,0.5);
+}
+
+.terms-contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(212,175,55,0.08);
+    border: 1px solid rgba(212,175,55,0.25);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #c5c5c5;
+}
+.terms-contact i {
+    color: var(--gold);
+    font-size: 0.95rem;
+}
+.terms-email {
+    color: var(--gold-light);
+    font-weight: 600;
+    background: rgba(212,175,55,0.12);
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.82rem;
+}
