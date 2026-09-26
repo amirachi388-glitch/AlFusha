@@ -70,38 +70,50 @@
     <!-- المحتوى -->
     <main class="main-content">
         <section id="home" class="section active">
-            <div class="welcome-card">
-                <div class="welcome-glow"></div>
-                <span class="welcome-badge"><i class="fas fa-star"></i> مرحباً بك</span>
-                <h2>أهلاً في <span class="gold">الفسحة</span> 🍿</h2>
-                <p>مكانك المفضل للاستمتاع بأفضل الأفلام والمسلسلات الكرتونية والأنمي في مكان واحد.</p>
-            </div>
-
-            <div class="section-title">
-                <h3><span class="dot"></span> أحدث الإضافات</h3>
-                <a href="#">عرض الكل</a>
-            </div>
-
-            <!-- كرت المحقق كونان -->
-            <div class="content-card" id="conanCard">
-                <div class="card-poster">
-                    <img src="https://picsum.photos/seed/conan2024/600/900" alt="المحقق كونان" loading="lazy">
-                    <div class="card-gradient"></div>
-                    <span class="card-type-badge">أنمي</span>
-                    <span class="card-rating-badge"><i class="fas fa-star"></i> 9.5</span>
-                    <div class="card-bottom">
-                        <h3>المحقق كونان</h3>
-                        <div class="card-meta">
-                            <span>2024</span>
-                            <span class="dot-sep">•</span>
-                            <span>3 حلقات</span>
-                            <span class="dot-sep">•</span>
-                            <span>HD</span>
-                        </div>
-                        <button class="card-watch-btn"><i class="fas fa-circle-play"></i> شاهد الآن</button>
-                    </div>
+            
+            <!-- البانر الأفقي -->
+            <div class="hero-banner" id="conanCard">
+                <img src="https://picsum.photos/seed/conan2024/800/400" alt="المحقق كونان">
+                <div class="hero-overlay"></div>
+                <div class="hero-text">
+                    <h2>إضغط على حلقة لبدء المشاهدة</h2>
                 </div>
             </div>
+
+            <!-- شريط الأدوات -->
+            <div class="toolbar">
+                <div class="toolbar-group">
+                    <button class="tool-btn"><i class="fas fa-backward"></i> السابقة</button>
+                    <button class="tool-btn"><i class="fas fa-forward"></i> التالية</button>
+                </div>
+                <div class="toolbar-group">
+                    <button class="tool-btn"><i class="fas fa-download"></i> تحميل</button>
+                    <button class="tool-btn"><i class="fas fa-cog"></i> الإعدادات</button>
+                </div>
+            </div>
+
+            <!-- صندوق جميع الحلقات -->
+            <div class="episodes-box" onclick="openDetails('conan')">
+                <h3>جميع الحلقات</h3>
+                <div class="empty-episodes">
+                    <i class="fas fa-film"></i>
+                    <p>لا توجد حلقات متاحة حالياً</p>
+                </div>
+            </div>
+
+            <!-- قسم التقييم -->
+            <div class="rating-box">
+                <h3>ما هو تقييمك للمسلسل؟</h3>
+                <div class="rating-emojis">
+                    <span class="emoji-item"><i class="fas fa-star"></i><small>جيد</small></span>
+                    <span class="emoji-item"><i class="fas fa-face-laugh-squint"></i><small>مضحك</small></span>
+                    <span class="emoji-item"><i class="fas fa-heart"></i><small>رائع</small></span>
+                    <span class="emoji-item"><i class="fas fa-face-grin-stars"></i><small>مشوق</small></span>
+                    <span class="emoji-item"><i class="fas fa-face-angry"></i><small>سيء</small></span>
+                    <span class="emoji-item"><i class="fas fa-face-sad-tear"></i><small>محزن</small></span>
+                </div>
+            </div>
+
         </section>
 
         <section id="library" class="section">
@@ -141,12 +153,10 @@
         </section>
     </main>
 
-    <!-- ===== صفحة التفاصيل (Bottom Sheet) ===== -->
+    <!-- صفحة التفاصيل (Bottom Sheet) -->
     <div class="details-overlay" id="detailsOverlay">
         <div class="details-sheet" id="detailsSheet">
             <div class="sheet-handle"></div>
-
-            <!-- هيرو الصفحة -->
             <div class="details-hero">
                 <img id="detailsPoster" src="" alt="">
                 <div class="details-hero-overlay"></div>
@@ -156,13 +166,9 @@
                     <div class="details-meta" id="detailsMeta"></div>
                 </div>
             </div>
-
-            <!-- جسم الصفحة -->
             <div class="details-body">
                 <div class="details-rating-row" id="detailsRatingRow"></div>
                 <p class="details-description" id="detailsDescription"></p>
-
-                <!-- قسم الحلقات -->
                 <div class="episodes-section" id="episodesSection">
                     <div class="episodes-header">
                         <h3><i class="fas fa-list"></i> الحلقات</h3>
@@ -180,7 +186,6 @@
             <video id="mainVideo" playsinline preload="metadata">
                 <source src="" type="video/mp4">
             </video>
-
             <div class="player-top hide-on-idle">
                 <button class="player-btn" id="closePlayerBtn"><i class="fas fa-arrow-right"></i></button>
                 <div class="player-title">
@@ -188,15 +193,11 @@
                     <p id="playerSubtitle">الحلقة 1</p>
                 </div>
             </div>
-
             <button class="big-play-btn" id="bigPlayBtn"><i class="fas fa-play"></i></button>
-
             <div class="player-controls hide-on-idle" id="playerControls">
                 <div class="progress-wrap" id="progressWrap">
                     <div class="progress-buffer" id="progressBuffer"></div>
-                    <div class="progress-played" id="progressPlayed">
-                        <div class="progress-thumb"></div>
-                    </div>
+                    <div class="progress-played" id="progressPlayed"><div class="progress-thumb"></div></div>
                 </div>
                 <div class="controls-row">
                     <div class="controls-left">
@@ -209,10 +210,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="player-loading" id="playerLoading">
-                <div class="spinner"></div>
-            </div>
+            <div class="player-loading" id="playerLoading"><div class="spinner"></div></div>
         </div>
     </div>
 

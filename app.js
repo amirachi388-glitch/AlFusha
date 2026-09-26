@@ -2,7 +2,6 @@
 // 🍿 الفسحة - المنطق الرئيسي
 // =========================================
 
-// ============ بيانات المحتوى ============
 const contentData = [
     {
         id: 'conan',
@@ -11,32 +10,17 @@ const contentData = [
         year: '2024',
         rating: '9.5',
         quality: 'HD',
-        poster: 'https://picsum.photos/seed/conan2024/600/900',
-        description: 'المحقق الأسطوري شينيتشي كودو يعود في مغامرة جديدة مليئة بالألغاز والتشويق. شاهد الحلقات الحصرية بجودة عالية مع ترجمة احترافية، وعش أجواء التحقيق مع كونان وأصدقائه في حل قضايا غامضة ومعقدة.',
+        poster: 'https://picsum.photos/seed/conan2024/800/400',
+        description: 'المحقق الأسطوري شينيتشي كودو يعود في مغامرة جديدة مليئة بالألغاز والتشويق. شاهد الحلقات الحصرية بجودة عالية مع ترجمة احترافية.',
         episodes: [
-            {
-                number: 1,
-                title: 'البداية الجديدة',
-                duration: '24 دقيقة',
-                videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
-            },
-            {
-                number: 2,
-                title: 'اللغز الغامض',
-                duration: '24 دقيقة',
-                videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
-            },
-            {
-                number: 3,
-                title: 'المواجهة الأخيرة',
-                duration: '24 دقيقة',
-                videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'
-            }
+            { number: 1, title: 'البداية الجديدة', duration: '24 دقيقة', videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
+            { number: 2, title: 'اللغز الغامض', duration: '24 دقيقة', videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4' },
+            { number: 3, title: 'المواجهة الأخيرة', duration: '24 دقيقة', videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4' }
         ]
     }
 ];
 
-// ============ عناصر القائمة الجانبية ============
+// ============ القائمة الجانبية ============
 const menuBtn = document.getElementById('menuBtn');
 const closeBtn = document.getElementById('closeBtn');
 const sidebar = document.getElementById('sidebar');
@@ -44,16 +28,8 @@ const overlay = document.getElementById('sidebarOverlay');
 const navItems = document.querySelectorAll('.nav-item');
 const sections = document.querySelectorAll('.section');
 
-function openSidebar() {
-    sidebar.classList.add('active');
-    overlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-function closeSidebar() {
-    sidebar.classList.remove('active');
-    overlay.classList.remove('active');
-    document.body.style.overflow = '';
-}
+function openSidebar() { sidebar.classList.add('active'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+function closeSidebar() { sidebar.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
 menuBtn.addEventListener('click', openSidebar);
 closeBtn.addEventListener('click', closeSidebar);
 overlay.addEventListener('click', closeSidebar);
@@ -71,9 +47,7 @@ navItems.forEach(item => {
     });
 });
 
-// =========================================
-// 🔍 البحث
-// =========================================
+// ============ البحث ============
 const searchBtn = document.getElementById('searchBtn');
 const searchOverlay = document.getElementById('searchOverlay');
 const closeSearchBtn = document.getElementById('closeSearchBtn');
@@ -81,29 +55,13 @@ const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
 const clearSearchBtn = document.getElementById('clearSearchBtn');
 
-function openSearch() {
-    searchOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    setTimeout(() => searchInput.focus(), 300);
-}
-function closeSearch() {
-    searchOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-    searchInput.value = '';
-    clearSearchBtn.classList.remove('visible');
-    showSearchHint();
-}
+function openSearch() { searchOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; setTimeout(() => searchInput.focus(), 300); }
+function closeSearch() { searchOverlay.classList.remove('active'); document.body.style.overflow = ''; searchInput.value = ''; clearSearchBtn.classList.remove('visible'); showSearchHint(); }
 searchBtn.addEventListener('click', openSearch);
 closeSearchBtn.addEventListener('click', closeSearch);
 
 function showSearchHint() {
-    searchResults.innerHTML = `
-        <div class="search-hint">
-            <div class="hint-icon"><i class="fas fa-magnifying-glass"></i></div>
-            <h4>ابحث في الفسحة</h4>
-            <p>اكتب اسم أي فيلم أو مسلسل تبحث عنه</p>
-        </div>
-    `;
+    searchResults.innerHTML = `<div class="search-hint"><div class="hint-icon"><i class="fas fa-magnifying-glass"></i></div><h4>ابحث في الفسحة</h4><p>اكتب اسم أي فيلم أو مسلسل تبحث عنه</p></div>`;
 }
 
 searchInput.addEventListener('input', (e) => {
@@ -111,19 +69,10 @@ searchInput.addEventListener('input', (e) => {
     if (query) clearSearchBtn.classList.add('visible');
     else { clearSearchBtn.classList.remove('visible'); showSearchHint(); return; }
 
-    const results = contentData.filter(item =>
-        item.title.toLowerCase().includes(query) ||
-        item.type.toLowerCase().includes(query)
-    );
+    const results = contentData.filter(item => item.title.toLowerCase().includes(query) || item.type.toLowerCase().includes(query));
 
     if (results.length === 0) {
-        searchResults.innerHTML = `
-            <div class="no-results">
-                <i class="fas fa-face-frown"></i>
-                <h4>ما فيه نتائج</h4>
-                <p>جرب تكتب اسم ثاني</p>
-            </div>
-        `;
+        searchResults.innerHTML = `<div class="no-results"><i class="fas fa-face-frown"></i><h4>ما فيه نتائج</h4><p>جرب تكتب اسم ثاني</p></div>`;
         return;
     }
 
@@ -149,9 +98,7 @@ clearSearchBtn.addEventListener('click', () => {
     showSearchHint();
 });
 
-// =========================================
-// 📋 صفحة التفاصيل
-// =========================================
+// ============ صفحة التفاصيل ============
 const detailsOverlay = document.getElementById('detailsOverlay');
 const closeDetailsBtn = document.getElementById('closeDetailsBtn');
 const detailsPoster = document.getElementById('detailsPoster');
@@ -162,64 +109,36 @@ const detailsDescription = document.getElementById('detailsDescription');
 const episodesList = document.getElementById('episodesList');
 const episodesCount = document.getElementById('episodesCount');
 
-let currentContent = null;
-
 function openDetails(id) {
     const content = contentData.find(c => c.id === id);
     if (!content) return;
-    currentContent = content;
 
-    // تعبئة البيانات
     detailsPoster.src = content.poster;
-    detailsPoster.alt = content.title;
     detailsTitle.textContent = content.title;
-    detailsMeta.innerHTML = `
-        <span><i class="fas fa-calendar"></i> ${content.year}</span>
-        <span><i class="fas fa-tag"></i> ${content.type}</span>
-        <span><i class="fas fa-closed-captioning"></i> ${content.quality}</span>
-    `;
-
-    detailsRatingRow.innerHTML = `
-        <div class="rating-pill"><i class="fas fa-star"></i> ${content.rating} تقييم</div>
-        <div class="rating-pill"><i class="fas fa-layer-group"></i> ${content.episodes.length} حلقات</div>
-    `;
-
+    detailsMeta.innerHTML = `<span><i class="fas fa-calendar"></i> ${content.year}</span><span><i class="fas fa-tag"></i> ${content.type}</span><span><i class="fas fa-closed-captioning"></i> ${content.quality}</span>`;
+    detailsRatingRow.innerHTML = `<div class="rating-pill"><i class="fas fa-star"></i> ${content.rating} تقييم</div><div class="rating-pill"><i class="fas fa-layer-group"></i> ${content.episodes.length} حلقات</div>`;
     detailsDescription.textContent = content.description;
 
-    // تعبئة الحلقات
     episodesCount.textContent = `${content.episodes.length} حلقات`;
     episodesList.innerHTML = content.episodes.map(ep => `
         <div class="episode-item" onclick="playEpisode('${content.id}', ${ep.number})">
             <div class="episode-number">${ep.number}</div>
-            <div class="episode-info">
-                <h4>${ep.title}</h4>
-                <p><i class="fas fa-clock"></i> ${ep.duration}</p>
-            </div>
+            <div class="episode-info"><h4>${ep.title}</h4><p><i class="fas fa-clock"></i> ${ep.duration}</p></div>
             <div class="episode-play-icon"><i class="fas fa-play"></i></div>
         </div>
     `).join('');
 
-    // إغلاق البحث إذا مفتوح
     closeSearch();
-
-    // فتح الصفحة
     detailsOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
     document.getElementById('detailsSheet').scrollTop = 0;
 }
 
-function closeDetails() {
-    detailsOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-}
+function closeDetails() { detailsOverlay.classList.remove('active'); document.body.style.overflow = ''; }
 closeDetailsBtn.addEventListener('click', closeDetails);
-detailsOverlay.addEventListener('click', (e) => {
-    if (e.target === detailsOverlay) closeDetails();
-});
+detailsOverlay.addEventListener('click', (e) => { if (e.target === detailsOverlay) closeDetails(); });
 
-// =========================================
-// 🎬 مشغل الفيديو
-// =========================================
+// ============ مشغل الفيديو ============
 const playerOverlay = document.getElementById('playerOverlay');
 const playerContainer = document.getElementById('playerContainer');
 const video = document.getElementById('mainVideo');
@@ -242,104 +161,58 @@ const playerSubtitle = document.getElementById('playerSubtitle');
 let idleTimer = null;
 let isSeeking = false;
 
-// تشغيل حلقة محددة
 function playEpisode(contentId, episodeNumber) {
     const content = contentData.find(c => c.id === contentId);
-    if (!content) return;
     const episode = content.episodes.find(e => e.number === episodeNumber);
     if (!episode) return;
 
-    // تحديث عناوين المشغل
     playerTitle.textContent = content.title;
     playerSubtitle.textContent = `الحلقة ${episode.number} • ${episode.title}`;
 
-    // تحميل الفيديو
     const source = video.querySelector('source');
     source.src = episode.videoUrl;
     video.load();
 
-    // فتح المشغل
     playerOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
-
-    setTimeout(() => {
-        video.play().catch(() => {});
-    }, 300);
-
+    setTimeout(() => { video.play().catch(() => {}); }, 300);
     resetIdleTimer();
 }
 
-function closePlayer() {
-    video.pause();
-    video.currentTime = 0;
-    playerOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
-    if (document.webkitFullscreenElement) document.webkitExitFullscreen();
-}
+function closePlayer() { video.pause(); video.currentTime = 0; playerOverlay.classList.remove('active'); document.body.style.overflow = ''; if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); }
 closePlayerBtn.addEventListener('click', closePlayer);
 
 function updatePlayIcon() {
-    playPauseBtn.innerHTML = video.paused
-        ? '<i class="fas fa-play"></i>'
-        : '<i class="fas fa-pause"></i>';
-    if (video.paused) {
-        bigPlayBtn.classList.remove('hidden');
-        bigPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
-    } else {
-        bigPlayBtn.classList.add('hidden');
-    }
+    playPauseBtn.innerHTML = video.paused ? '<i class="fas fa-play"></i>' : '<i class="fas fa-pause"></i>';
+    if (video.paused) { bigPlayBtn.classList.remove('hidden'); bigPlayBtn.innerHTML = '<i class="fas fa-play"></i>'; }
+    else { bigPlayBtn.classList.add('hidden'); }
 }
 
-function togglePlay() {
-    if (video.paused) video.play().catch(() => {});
-    else video.pause();
-    resetIdleTimer();
-}
+function togglePlay() { if (video.paused) video.play().catch(() => {}); else video.pause(); resetIdleTimer(); }
 playPauseBtn.addEventListener('click', togglePlay);
 bigPlayBtn.addEventListener('click', togglePlay);
-
 video.addEventListener('click', () => {
-    if (playerControls.classList.contains('idle')) {
-        playerControls.classList.remove('idle');
-        playerTop.classList.remove('idle');
-        resetIdleTimer();
-    } else {
-        togglePlay();
-    }
+    if (playerControls.classList.contains('idle')) { playerControls.classList.remove('idle'); playerTop.classList.remove('idle'); resetIdleTimer(); }
+    else { togglePlay(); }
 });
-
 video.addEventListener('play', updatePlayIcon);
 video.addEventListener('pause', updatePlayIcon);
 
-muteBtn.addEventListener('click', () => {
-    video.muted = !video.muted;
-    muteBtn.innerHTML = video.muted
-        ? '<i class="fas fa-volume-xmark"></i>'
-        : '<i class="fas fa-volume-high"></i>';
-    resetIdleTimer();
-});
+muteBtn.addEventListener('click', () => { video.muted = !video.muted; muteBtn.innerHTML = video.muted ? '<i class="fas fa-volume-xmark"></i>' : '<i class="fas fa-volume-high"></i>'; resetIdleTimer(); });
 
 fullscreenBtn.addEventListener('click', () => {
     const elem = playerContainer;
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-        if (elem.requestFullscreen) elem.requestFullscreen();
-        else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+        if (elem.requestFullscreen) elem.requestFullscreen(); else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
         fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
     } else {
-        if (document.exitFullscreen) document.exitFullscreen();
-        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        if (document.exitFullscreen) document.exitFullscreen(); else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
         fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
     }
     resetIdleTimer();
 });
 
-function formatTime(sec) {
-    if (!sec || isNaN(sec)) return '0:00';
-    const m = Math.floor(sec / 60);
-    const s = Math.floor(sec % 60);
-    return `${m}:${s < 10 ? '0' : ''}${s}`;
-}
+function formatTime(sec) { if (!sec || isNaN(sec)) return '0:00'; const m = Math.floor(sec / 60); const s = Math.floor(sec % 60); return `${m}:${s < 10 ? '0' : ''}${s}`; }
 
 function updateProgress() {
     if (isSeeking || !video.duration) return;
@@ -349,25 +222,15 @@ function updateProgress() {
 }
 
 video.addEventListener('timeupdate', updateProgress);
-video.addEventListener('loadedmetadata', () => {
-    totalTimeEl.textContent = formatTime(video.duration);
-});
-video.addEventListener('progress', () => {
-    if (video.buffered.length > 0 && video.duration) {
-        const bufferedEnd = video.buffered.end(video.buffered.length - 1);
-        progressBuffer.style.width = (bufferedEnd / video.duration * 100) + '%';
-    }
-});
-
+video.addEventListener('loadedmetadata', () => { totalTimeEl.textContent = formatTime(video.duration); });
+video.addEventListener('progress', () => { if (video.buffered.length > 0 && video.duration) { const bufferedEnd = video.buffered.end(video.buffered.length - 1); progressBuffer.style.width = (bufferedEnd / video.duration * 100) + '%'; } });
 video.addEventListener('waiting', () => playerLoading.classList.add('visible'));
 video.addEventListener('playing', () => playerLoading.classList.remove('visible'));
 video.addEventListener('canplay', () => playerLoading.classList.remove('visible'));
 
 function seekFromEvent(e) {
     const rect = progressWrap.getBoundingClientRect();
-    let x;
-    if (e.touches) x = e.touches[0].clientX - rect.left;
-    else x = e.clientX - rect.left;
+    let x = e.touches ? e.touches[0].clientX - rect.left : e.clientX - rect.left;
     let percent = Math.max(0, Math.min(1, x / rect.width));
     const time = percent * video.duration;
     progressPlayed.style.width = (percent * 100) + '%';
@@ -378,16 +241,13 @@ function seekFromEvent(e) {
 let seekStart = false;
 progressWrap.addEventListener('mousedown', (e) => { isSeeking = true; seekFromEvent(e); });
 progressWrap.addEventListener('mousemove', (e) => { if (isSeeking) seekFromEvent(e); });
-window.addEventListener('mouseup', (e) => {
-    if (isSeeking) { video.currentTime = seekFromEvent(e); isSeeking = false; }
-});
+window.addEventListener('mouseup', (e) => { if (isSeeking) { video.currentTime = seekFromEvent(e); isSeeking = false; } });
 progressWrap.addEventListener('touchstart', (e) => { isSeeking = true; seekFromEvent(e); resetIdleTimer(); }, { passive: true });
 progressWrap.addEventListener('touchmove', (e) => { if (isSeeking) seekFromEvent(e); }, { passive: true });
 progressWrap.addEventListener('touchend', (e) => {
     if (isSeeking) {
         const rect = progressWrap.getBoundingClientRect();
-        const touch = e.changedTouches[0];
-        const x = touch.clientX - rect.left;
+        const x = e.changedTouches[0].clientX - rect.left;
         let percent = Math.max(0, Math.min(1, x / rect.width));
         video.currentTime = percent * video.duration;
         isSeeking = false;
@@ -395,19 +255,12 @@ progressWrap.addEventListener('touchend', (e) => {
 }, { passive: true });
 
 function resetIdleTimer() {
-    playerControls.classList.remove('idle');
-    playerTop.classList.remove('idle');
+    playerControls.classList.remove('idle'); playerTop.classList.remove('idle');
     clearTimeout(idleTimer);
-    idleTimer = setTimeout(() => {
-        if (!video.paused) {
-            playerControls.classList.add('idle');
-            playerTop.classList.add('idle');
-        }
-    }, 3000);
+    idleTimer = setTimeout(() => { if (!video.paused) { playerControls.classList.add('idle'); playerTop.classList.add('idle'); } }, 3000);
 }
 playerContainer.addEventListener('mousemove', resetIdleTimer);
 playerContainer.addEventListener('touchstart', resetIdleTimer);
-
 document.addEventListener('keydown', (e) => {
     if (!playerOverlay.classList.contains('active')) return;
     if (e.key === ' ' || e.key === 'k') { e.preventDefault(); togglePlay(); }
@@ -418,13 +271,8 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closePlayer();
 });
 
-// =========================================
-// 🔗 ربط الأحداث
-// =========================================
+// ربط الأحداث
 document.getElementById('conanCard').addEventListener('click', () => openDetails('conan'));
-
-// دوال عامة
 window.openDetails = openDetails;
 window.playEpisode = playEpisode;
-
 console.log('🍿 الفسحة جاهزة!');
